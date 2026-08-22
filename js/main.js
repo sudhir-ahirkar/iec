@@ -31,6 +31,32 @@
         }
     }
 
+    document.querySelectorAll("form[name='business-enquiry']:not(.d-none)").forEach(function (form) {
+        form.addEventListener("submit", function (event) {
+            if (!form.checkValidity()) {
+                return;
+            }
+            event.preventDefault();
+            var local = location.hostname === "127.0.0.1" || location.hostname === "localhost";
+            if (local) {
+                window.location.assign("/thank-you.html");
+                return;
+            }
+            var body = new URLSearchParams(new FormData(form)).toString();
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: body,
+            })
+                .then(function () {
+                    window.location.assign("/thank-you.html");
+                })
+                .catch(function () {
+                    window.location.assign("/thank-you.html");
+                });
+        });
+    });
+
     if (product) {
         var message =
             "Hello Global Route Company, I would like to enquire about sourcing from India. Product: " +

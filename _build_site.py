@@ -121,7 +121,7 @@ def nav(active: str) -> str:
     </div>
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
         <a href="index.html" class="navbar-brand navbar-brand-logo" aria-label="{COMPANY}">
-            <img src="img/logo.svg?v=2" alt="{COMPANY}" width="280" height="52">
+            <img src="img/logo.svg?v=3" alt="{COMPANY}" width="280" height="52">
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -150,7 +150,7 @@ FOOTER = f"""
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-4 col-md-6">
-                    <a href="index.html" class="footer-logo-link" aria-label="{COMPANY}"><img src="img/logo-white.svg?v=2" alt="{COMPANY}" class="footer-logo" width="280" height="52"></a>
+                    <a href="index.html" class="footer-logo-link" aria-label="{COMPANY}"><img src="img/logo-white.svg?v=3" alt="{COMPANY}" class="footer-logo" width="280" height="52"></a>
                     <p class="footer-tagline">{TAGLINE}</p>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>{ADDRESS}</p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a class="text-light" href="tel:{PHONE_TEL}">{PHONE}</a> <span class="text-white-50">(IST)</span></p>
@@ -244,7 +244,7 @@ def product_href(name: str, enquiry: str = "Export from India") -> str:
 
 
 ENQUIRY_FORM = """
-                    <form name="business-enquiry" method="POST" action="thank-you.html" data-netlify="true" netlify-honeypot="bot-field">
+                    <form name="business-enquiry" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field">
                         <input type="hidden" name="form-name" value="business-enquiry">
                         <p class="d-none"><label>Don’t fill this out: <input name="bot-field"></label></p>
                         <div class="row g-3">
@@ -332,6 +332,20 @@ def write(name: str, title: str, active: str, body: str, description: str = None
 # ---- Page bodies ----
 
 INDEX = f"""
+    <form name="business-enquiry" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field" class="d-none" aria-hidden="true" tabindex="-1">
+        <input type="hidden" name="form-name" value="business-enquiry">
+        <input name="bot-field">
+        <input name="full_name">
+        <input name="company_name">
+        <input name="email">
+        <input name="phone">
+        <input name="country">
+        <input name="enquiry_type">
+        <input name="product">
+        <input name="quantity">
+        <input name="destination_origin">
+        <input name="message">
+    </form>
     <div class="hero-single">
         <img src="img/carousel-1.jpg" alt="Indian agricultural fields for export" width="1920" height="1080" loading="eager" fetchpriority="high">
         <div class="hero-overlay">
