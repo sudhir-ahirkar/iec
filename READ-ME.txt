@@ -1,11 +1,11 @@
-  =>  Template Name    : Logistica - Shipping Company Website Template
+Global Route Company Website
+============================
+Built on the Logistica HTML template structure (Bootstrap 5).
+Static site for GitHub → Netlify deployment.
 
-  =>  Template Link    : https://htmlcodex.com/shipping-company-website-template
+Contact forms use Netlify Forms (data-netlify="true").
+Configure form email notifications in the Netlify dashboard after deploy.
 
-  =>  Template License : https://htmlcodex.com/license (or read the LICENSE.txt file)
-
-  =>  Template Author  : HTML Codex
-
-  =>  Author Website   : https://htmlcodex.com
-
-  =>  About HTML Codex : HTML Codex is one of the top creators and publishers of Free HTML templates, HTML landing pages, HTML email templates and HTML snippets in the world. Read more at ( https://htmlcodex.com/about-us )
+Company: Global Route Company
+Phone: +91 9225159719
+Email: lokeshghagare@gmail.com

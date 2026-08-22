@@ -1,9 +1,10 @@
-/********** Template CSS **********/
+/********** Global Route Company — Template CSS **********/
 :root {
-    --primary: #FF3E41;
-    --secondary: #51CFED;
-    --light: #F8F2F0;
-    --dark: #060315;
+    --primary: #1A5F4A;
+    --secondary: #C4A35A;
+    --light: #F3F6F4;
+    --dark: #0B1D36;
+    --accent-green: #24805F;
 }
 
 .fw-medium {
@@ -45,6 +46,10 @@
     color: #FFFFFF;
 }
 
+.btn.btn-outline-light:hover {
+    color: var(--dark);
+}
+
 .btn-square {
     width: 38px;
     height: 38px;
@@ -82,17 +87,41 @@
 
 .navbar-light .navbar-nav .nav-link {
     position: relative;
-    margin-right: 30px;
+    margin-right: 22px;
     padding: 25px 0;
-    color: #FFFFFF;
-    font-size: 15px;
+    color: var(--dark);
+    font-size: 14px;
+    font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: .3px;
     outline: none;
 }
 
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-light .navbar-nav .nav-link.active {
     color: var(--primary);
+}
+
+.navbar-brand-logo {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    background: #fff !important;
+    border-right: 1px solid rgba(11, 29, 54, .08);
+}
+
+.navbar-brand-logo img {
+    height: 52px;
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+}
+
+.navbar-phone {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dark);
+    white-space: nowrap;
 }
 
 @media (max-width: 991.98px) {
@@ -104,16 +133,20 @@
     .navbar-light .navbar-nav {
         border-top: 1px solid #EEEEEE;
     }
+
+    .navbar-brand-logo {
+        height: 64px;
+    }
+
+    .navbar-brand-logo img {
+        height: 44px;
+        max-width: 180px;
+    }
 }
 
 .navbar-light .navbar-brand,
 .navbar-light a.btn {
     height: 75px;
-}
-
-.navbar-light .navbar-nav .nav-link {
-    color: var(--dark);
-    font-weight: 500;
 }
 
 .navbar-light.sticky-top {
@@ -126,10 +159,10 @@
         position: absolute;
         content: "";
         width: 0;
-        height: 5px;
+        height: 4px;
         top: -6px;
         left: 50%;
-        background: #FFFFFF;
+        background: var(--primary);
         transition: .5s;
     }
 
@@ -188,6 +221,12 @@
     }
 }
 
+.header-carousel .owl-carousel-item img {
+    max-height: 680px;
+    width: 100%;
+    object-fit: cover;
+}
+
 .header-carousel .owl-nav {
     position: absolute;
     top: 50%;
@@ -220,7 +259,7 @@
 }
 
 .page-header {
-    background: linear-gradient(rgba(6, 3, 21, .5), rgba(6, 3, 21, .5)), url(../img/carousel-1.jpg) center center no-repeat;
+    background: linear-gradient(rgba(11, 29, 54, .72), rgba(11, 29, 54, .72)), url(../img/carousel-1.jpg) center center no-repeat;
     background-size: cover;
 }
 
@@ -280,18 +319,37 @@
 /*** Service, Price & Team ***/
 .service-item,
 .price-item,
-.team-item {
+.team-item,
+.product-item,
+.process-item,
+.why-item,
+.market-item {
     box-shadow: 0 0 45px rgba(0, 0, 0, .07);
+    background: #fff;
+    height: 100%;
 }
 
 .service-item img,
-.team-item img {
+.team-item img,
+.product-item img {
     transition: .5s;
 }
 
 .service-item:hover img,
-.team-item:hover img {
+.team-item:hover img,
+.product-item:hover img {
     transform: scale(1.1);
+}
+
+.product-item .product-img {
+    height: 220px;
+    overflow: hidden;
+}
+
+.product-item .product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .service-item a.btn-slide,
@@ -358,38 +416,91 @@
 }
 
 
-/*** Testimonial ***/
-.testimonial-carousel .owl-item .testimonial-item {
-    position: relative;
-    transition: .5s;
+/*** Process ***/
+.process-item {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: .35s;
 }
 
-.testimonial-carousel .owl-item.center .testimonial-item {
-    box-shadow: 0 0 45px rgba(0, 0, 0, .08);
-    animation: pulse 1s ease-out .5s;
+.process-item:hover {
+    transform: translateY(-6px);
 }
 
-.testimonial-carousel .owl-dots {
-    display: flex;
+.process-number {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
 }
 
-.testimonial-carousel .owl-dot {
-    position: relative;
-    display: inline-block;
-    margin: 0 5px;
-    width: 15px;
-    height: 15px;
-    background: var(--primary);
-    border: 5px solid var(--light);
-    border-radius: 15px;
-    transition: .5s;
+
+/*** Why / Markets ***/
+.why-item {
+    padding: 1.75rem;
+    transition: .35s;
 }
 
-.testimonial-carousel .owl-dot.active {
-    background: var(--light);
-    border-color: var(--primary);
+.why-item:hover {
+    transform: translateY(-4px);
+}
+
+.market-item {
+    padding: 1.5rem;
+    text-align: center;
+    border-top: 4px solid var(--primary);
+}
+
+
+/*** CTA band ***/
+.cta-band {
+    background: linear-gradient(rgba(11, 29, 54, .82), rgba(26, 95, 74, .78)), url(../img/cta-bg.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.cta-card {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.18);
+    padding: 2rem;
+    height: 100%;
+}
+
+
+/*** Tagline strip ***/
+.tagline-strip {
+    background: var(--dark);
+    color: #fff;
+}
+
+.tagline-strip .tagline-item {
+    text-align: center;
+    padding: .75rem;
+    font-size: .9rem;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.tagline-strip .tagline-item span {
+    color: var(--secondary);
+}
+
+
+/*** Quote / form note ***/
+.form-integration-note {
+    font-size: .85rem;
+    color: #6c757d;
+    background: #fff;
+    border-left: 3px solid var(--secondary);
+    padding: .75rem 1rem;
+    margin-bottom: 1rem;
 }
 
 
@@ -419,7 +530,7 @@
 
 /*** Footer ***/
 .footer {
-    background: linear-gradient(rgba(6, 3, 21, .5), rgba(6, 3, 21, .5)), url(../img/map.png) center center no-repeat;
+    background: linear-gradient(rgba(11, 29, 54, .88), rgba(11, 29, 54, .92)), url(../img/map.png) center center no-repeat;
     background-size: cover;
 }
 
@@ -437,7 +548,8 @@
 }
 
 .footer .btn.btn-social:hover {
-    color: var(--primary);
+    color: var(--secondary);
+    border-color: var(--secondary);
 }
 
 .footer .btn.btn-link {
@@ -463,6 +575,7 @@
 .footer .btn.btn-link:hover {
     letter-spacing: 1px;
     box-shadow: none;
+    color: var(--secondary);
 }
 
 .footer .copyright {
@@ -474,3 +587,18 @@
 .footer .copyright a {
     color: var(--light);
 }
+
+.footer-brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: .35rem;
+}
+
+.footer-tagline {
+    color: var(--secondary);
+    font-size: .95rem;
+    margin-bottom: 1rem;
+}
+
+/*** Brand extras ***/

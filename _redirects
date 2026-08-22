@@ -1,0 +1,6 @@
+# Netlify redirects / SPA fallbacks for Global Route Company static site
+/404.html  /404.html  404
+/feature.html  /about.html  301
+/price.html  /products.html  301
+/team.html  /about.html  301
+/testimonial.html  /about.html  301
