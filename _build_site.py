@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Generate Global Route Company website pages from the Logistica template."""
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -11,6 +12,7 @@ PHONE_TEL = "+919225159719"
 EMAIL = "lokeshghagare@gmail.com"
 ADDRESS = "Plot No. 188, CA Road, Garoba Maidan, Nagpur, Maharashtra (Near Dalvi Hospital) - 440008"
 WHATSAPP = "https://wa.me/919225159719?text=Hello%20Global%20Route%20Company%2C%20I%20would%20like%20to%20enquire%20about%20sourcing%20from%20India."
+SITE = "https://groute.co.in"
 
 SEO_KEYWORDS = (
     "Import Export Company India, Agricultural Exporter India, Agricultural Products Export, "
@@ -24,7 +26,33 @@ SEO_DESC = (
 )
 
 
-def head(title: str, description: str = SEO_DESC) -> str:
+ORG_SCHEMA = json.dumps(
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": COMPANY,
+        "url": f"{SITE}/",
+        "logo": f"{SITE}/img/logo.svg",
+        "email": EMAIL,
+        "telephone": PHONE,
+        "description": SEO_DESC,
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Plot No. 188, CA Road, Garoba Maidan",
+            "addressLocality": "Nagpur",
+            "addressRegion": "Maharashtra",
+            "postalCode": "440008",
+            "addressCountry": "IN",
+        },
+    },
+    ensure_ascii=False,
+)
+
+
+def head(title: str, description: str, page: str, noindex: bool = False) -> str:
+    path = "/" if page == "index.html" else f"/{page}"
+    url = SITE + path
+    robots = "noindex, follow" if noindex else "index, follow"
     return f"""<!DOCTYPE html>
 <html lang="en">
 
@@ -32,8 +60,21 @@ def head(title: str, description: str = SEO_DESC) -> str:
     <meta charset="utf-8">
     <title>{title}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="robots" content="{robots}">
     <meta content="{SEO_KEYWORDS}" name="keywords">
     <meta content="{description}" name="description">
+    <link rel="canonical" href="{url}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{COMPANY}">
+    <meta property="og:title" content="{title}">
+    <meta property="og:description" content="{description}">
+    <meta property="og:url" content="{url}">
+    <meta property="og:image" content="{SITE}/img/og.jpg">
+    <meta property="og:locale" content="en_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{title}">
+    <meta name="twitter:description" content="{description}">
+    <meta name="twitter:image" content="{SITE}/img/og.jpg">
     <link href="img/favicon.svg" rel="icon" type="image/svg+xml">
     <link href="img/favicon-32.png" rel="icon" type="image/png" sizes="32x32">
     <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -47,6 +88,7 @@ def head(title: str, description: str = SEO_DESC) -> str:
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <style>body{{font-family:"Plus Jakarta Sans",sans-serif;}} h1,h2,h3,h4,h5,.display-3{{font-weight:700;}}</style>
+    <script type="application/ld+json">{ORG_SCHEMA}</script>
 </head>
 
 <body>
@@ -74,16 +116,15 @@ def nav(active: str) -> str:
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="index.html" class="{c('home')}">Home</a>
                 <a href="about.html" class="{c('about')}">About Us</a>
-                <a href="exports.html" class="{c('exports')}">Exports</a>
-                <a href="imports.html" class="{c('imports')}">Imports</a>
                 <a href="products.html" class="{c('products')}">Products</a>
                 <a href="service.html" class="{c('services')}">Services</a>
-                <a href="markets.html" class="{c('markets')}">Markets</a>
                 <a href="contact.html" class="{c('contact')}">Contact</a>
+                <a href="quote.html" class="nav-item nav-link d-lg-none">Request a Quote</a>
                 <a href="{WHATSAPP}" class="nav-item nav-link d-lg-none" target="_blank" rel="noopener">WhatsApp</a>
             </div>
             <div class="navbar-actions d-none d-lg-flex align-items-center pe-lg-4">
-                <a href="tel:{PHONE_TEL}" class="navbar-phone me-3"><i class="fa fa-phone-alt text-primary me-2"></i>{PHONE}</a>
+                <a href="tel:{PHONE_TEL}" class="navbar-phone me-3"><i class="fa fa-phone-alt text-primary me-2"></i>{PHONE} <span class="navbar-tz">IST</span></a>
+                <a href="quote.html" class="btn btn-primary py-2 px-3 me-2">Request a Quote</a>
                 <a href="{WHATSAPP}" class="btn btn-whatsapp py-2 px-3" target="_blank" rel="noopener"><i class="fab fa-whatsapp me-1"></i>WhatsApp</a>
             </div>
         </div>
@@ -99,7 +140,7 @@ FOOTER = f"""
                     <div class="footer-brand">{COMPANY}</div>
                     <p class="footer-tagline">{TAGLINE}</p>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>{ADDRESS}</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a class="text-light" href="tel:{PHONE_TEL}">{PHONE}</a></p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a class="text-light" href="tel:{PHONE_TEL}">{PHONE}</a> <span class="text-white-50">(IST)</span></p>
                     <p class="mb-2"><i class="fab fa-whatsapp me-3"></i><a class="text-light" href="{WHATSAPP}" target="_blank" rel="noopener">WhatsApp</a></p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i><a class="text-light" href="mailto:{EMAIL}">{EMAIL}</a></p>
                 </div>
@@ -112,6 +153,7 @@ FOOTER = f"""
                     <a class="btn btn-link" href="products.html">Products</a>
                     <a class="btn btn-link" href="service.html">Services</a>
                     <a class="btn btn-link" href="contact.html">Contact</a>
+                    <a class="btn btn-link" href="privacy.html">Privacy Policy</a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">What We Do</h4>
@@ -135,7 +177,7 @@ FOOTER = f"""
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-12 text-center mb-3 mb-md-0">
-                        &copy; 2026 {COMPANY}. All Rights Reserved.
+                        &copy; 2026 {COMPANY}. All Rights Reserved. · <a class="border-bottom" href="privacy.html">Privacy Policy</a>
                     </div>
                 </div>
             </div>
@@ -187,8 +229,8 @@ ENQUIRY_FORM = """
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="companyName" name="company_name" placeholder="Company Name">
-                                    <label for="companyName">Company Name</label>
+                                    <input type="text" class="form-control" id="companyName" name="company_name" placeholder="Company Name" required>
+                                    <label for="companyName">Company Name *</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -205,8 +247,8 @@ ENQUIRY_FORM = """
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="country" name="country" placeholder="Country">
-                                    <label for="country">Country</label>
+                                    <input type="text" class="form-control" id="country" name="country" placeholder="Country" required>
+                                    <label for="country">Country *</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -254,8 +296,8 @@ ENQUIRY_FORM = """
 """
 
 
-def write(name: str, title: str, active: str, body: str):
-    html = head(title) + nav(active) + body + FOOTER
+def write(name: str, title: str, active: str, body: str, description: str = None, noindex: bool = False):
+    html = head(title, description or SEO_DESC, name, noindex) + nav(active) + body + FOOTER
     (ROOT / name).write_text(html, encoding="utf-8")
     print("wrote", name)
 
@@ -311,38 +353,6 @@ INDEX = f"""
         </div>
     </div>
 
-    <div class="container-fluid overflow-hidden py-5 px-lg-0">
-        <div class="container about py-5 px-lg-0">
-            <div class="row g-5 mx-lg-0">
-                <div class="col-lg-6 ps-lg-0 wow fadeInLeft" data-wow-delay="0.1s" style="min-height: 400px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute img-fluid w-100 h-100" src="img/about.jpg" style="object-fit: cover;" alt="Agricultural sourcing">
-                    </div>
-                </div>
-                <div class="col-lg-6 about-text wow fadeInUp" data-wow-delay="0.3s">
-                    <h6 class="text-secondary text-uppercase mb-3">About {COMPANY}</h6>
-                    <h1 class="mb-4">An International Import &amp; Export Trading Company</h1>
-                    <p class="mb-4">{COMPANY} is an India-based international trading company focused on creating reliable connections between Indian producers, global buyers and international suppliers.</p>
-                    <p class="mb-4">Our business is built around responsible sourcing, quality products, transparent communication and long-term business relationships.</p>
-                    <p class="mb-4 fw-medium">Source responsibly. Trade transparently. Deliver reliably.</p>
-                    <div class="row g-4 mb-4">
-                        <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
-                            <i class="fa fa-globe fa-3x text-primary mb-3"></i>
-                            <h5>Global Connectivity</h5>
-                            <p class="m-0">Linking Indian agricultural opportunities with international demand.</p>
-                        </div>
-                        <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
-                            <i class="fa fa-handshake fa-3x text-primary mb-3"></i>
-                            <h5>Long-Term Partnerships</h5>
-                            <p class="m-0">Building sustainable relationships with buyers, suppliers and partners.</p>
-                        </div>
-                    </div>
-                    <a href="about.html" class="btn btn-primary py-3 px-5">Learn More About Us</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="container-xxl py-5">
         <div class="container py-5">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -351,7 +361,7 @@ INDEX = f"""
                 <p class="mb-5 mx-auto" style="max-width: 760px;">India is home to a diverse agricultural ecosystem producing a wide range of fruits, vegetables, spices, grains and other food products. We aim to connect these products with international markets through reliable sourcing and professional trade coordination.</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item p-4">
                         <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/fruits.jpg" alt="Fresh fruits"></div>
                         <h4 class="mb-3">Fresh Fruits</h4>
@@ -359,7 +369,7 @@ INDEX = f"""
                         <a class="btn-slide mt-2" href="exports.html"><i class="fa fa-arrow-right"></i><span>View Exports</span></a>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
                     <div class="service-item p-4">
                         <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/vegetables.jpg" alt="Fresh vegetables"></div>
                         <h4 class="mb-3">Fresh Vegetables</h4>
@@ -367,7 +377,7 @@ INDEX = f"""
                         <a class="btn-slide mt-2" href="exports.html"><i class="fa fa-arrow-right"></i><span>View Exports</span></a>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="service-item p-4">
                         <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/chilli.jpg" alt="Chilli and spices"></div>
                         <h4 class="mb-3">Chilli &amp; Spices</h4>
@@ -375,7 +385,7 @@ INDEX = f"""
                         <a class="btn-slide mt-2" href="exports.html"><i class="fa fa-arrow-right"></i><span>View Exports</span></a>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.4s">
                     <div class="service-item p-4">
                         <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/rice.jpg" alt="Rice and grains"></div>
                         <h4 class="mb-3">Grains &amp; Pulses</h4>
@@ -383,21 +393,9 @@ INDEX = f"""
                         <a class="btn-slide mt-2" href="exports.html"><i class="fa fa-arrow-right"></i><span>View Exports</span></a>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/custom.jpg" alt="Custom sourcing"></div>
-                        <h4 class="mb-3">Custom Sourcing</h4>
-                        <p>Products sourced according to specific buyer requirements, quantities and destination needs.</p>
-                        <a class="btn-slide mt-2" href="quote.html"><i class="fa fa-arrow-right"></i><span>Request Sourcing</span></a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.6s">
-                    <div class="service-item p-4 d-flex flex-column justify-content-center bg-primary text-white">
-                        <h4 class="mb-3 text-white">Looking for a Specific Product?</h4>
-                        <p class="text-white">We source and supply a wide range of agricultural and food products based on buyer requirements and market demand.</p>
-                        <a href="quote.html" class="btn btn-secondary py-3 px-4 align-self-start">Request a Quote</a>
-                    </div>
-                </div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="products.html" class="btn btn-primary py-3 px-5">View All Products</a>
             </div>
         </div>
     </div>
@@ -408,11 +406,7 @@ INDEX = f"""
                 <div class="col-lg-6 feature-text wow fadeInUp" data-wow-delay="0.1s">
                     <h6 class="text-secondary text-uppercase mb-3">Import to India</h6>
                     <h1 class="mb-4">Bringing Global Opportunities to India</h1>
-                    <p class="mb-4">Alongside exports, {COMPANY} explores international sourcing opportunities for products that have potential in the Indian market.</p>
-                    <p class="mb-4">Import opportunities are evaluated based on Indian market demand, product quality, supplier reliability, commercial viability and regulatory requirements.</p>
-                    <div class="d-flex mb-4"><i class="fa fa-search text-primary fa-2x flex-shrink-0"></i><div class="ms-4"><h5>Product Identification</h5><p class="mb-0">Identifying products with clear potential for the Indian market.</p></div></div>
-                    <div class="d-flex mb-4"><i class="fa fa-users text-primary fa-2x flex-shrink-0"></i><div class="ms-4"><h5>Supplier Communication</h5><p class="mb-0">Engaging with international suppliers to evaluate reliability and fit.</p></div></div>
-                    <div class="d-flex mb-4"><i class="fa fa-balance-scale text-primary fa-2x flex-shrink-0"></i><div class="ms-4"><h5>Commercial Evaluation</h5><p class="mb-0">Assessing commercial viability before coordinating import opportunities.</p></div></div>
+                    <p class="mb-4">Alongside exports, {COMPANY} explores international sourcing opportunities for products that have potential in the Indian market — based on demand, quality, supplier reliability and commercial viability.</p>
                     <a href="imports.html" class="btn btn-primary py-3 px-5">Discuss an Import Opportunity</a>
                 </div>
                 <div class="col-lg-6 pe-lg-0 wow fadeInRight" data-wow-delay="0.1s" style="min-height: 400px;">
@@ -425,130 +419,16 @@ INDEX = f"""
     </div>
 """
 
-# continue index products + services + why + markets + process + cta
-PRODUCT_CARDS = [
-    ("fruits.jpg", "Fruits", "Seasonal fresh fruits including papaya, mango, banana, grapes and pomegranate."),
-    ("vegetables.jpg", "Vegetables", "Onion, potato and other vegetables based on market and buyer needs."),
-    ("chilli.jpg", "Chilli & Spices", "Indian chilli, red chilli and selected spice varieties."),
-    ("rice.jpg", "Rice & Grains", "Rice, grains and related agricultural commodities."),
-    ("pulses.jpg", "Pulses", "Pulses and related food commodities for trade opportunities."),
-    ("commodities.jpg", "Agricultural Commodities", "Broader commodity sourcing aligned to buyer requirements."),
-    ("processed.jpg", "Processed Food Products", "Selected processed food opportunities subject to demand and feasibility."),
-    ("custom.jpg", "Custom Sourcing", "Tailored sourcing for specific product, quantity and destination needs."),
-]
-
-INDEX += """
-    <div class="container-xxl py-5">
-        <div class="container py-5">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Our Product Categories</h6>
-                <h1 class="mb-5">Agricultural &amp; Food Products</h1>
-            </div>
-            <div class="row g-4">
-"""
-for i, (img, title, desc) in enumerate(PRODUCT_CARDS):
-    INDEX += f"""
-                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.{i+1}s">
-                    <div class="product-item">
-                        <div class="product-img"><img src="img/products/{img}" alt="{title}"></div>
-                        <div class="p-4"><h5 class="mb-2">{title}</h5><p class="mb-0">{desc}</p></div>
-                    </div>
-                </div>"""
-
-INDEX += """
-            </div>
-            <div class="text-center mt-5"><a href="products.html" class="btn btn-primary py-3 px-5">View All Products</a></div>
-        </div>
-    </div>
-
-    <div class="container-xxl py-5 bg-light">
-        <div class="container py-5">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Our Services</h6>
-                <h1 class="mb-5">International Trading Services</h1>
-            </div>
-            <div class="row g-4">
-"""
-
-for i, (icon, title, desc) in enumerate([
-    ("fa-search-location", "Global Sourcing", "Identifying suitable products and reliable suppliers according to buyer requirements."),
-    ("fa-exchange-alt", "Import & Export", "Supporting international trade opportunities between India and global markets."),
-    ("fa-seedling", "Agricultural Product Sourcing", "Connecting buyers with suitable agricultural products from Indian markets."),
-    ("fa-people-carry", "Supplier Coordination", "Working with suppliers and producers to support availability and commercial requirements."),
-    ("fa-file-alt", "Quality & Documentation Coordination", "Supporting product information, documentation and trade-related coordination."),
-    ("fa-shipping-fast", "Logistics Coordination", "Coordinating with appropriate logistics partners for transportation and shipment requirements."),
+for i, (num, title, desc) in enumerate([
+    ("01", "Requirement", "Understand buyer and product requirements."),
+    ("02", "Source", "Identify suitable products and suppliers."),
+    ("03", "Verify & Coordinate", "Align product details, quality needs and commercial discussions."),
+    ("04", "Trade", "Discuss commercial terms such as FOB or CIF and coordinate documentation with logistics partners."),
+    ("05", "Deliver", "Support shipment through reliable logistics partners."),
 ]):
-    INDEX += f"""
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.{i+1}s">
-                    <div class="why-item">
-                        <i class="fa {icon} fa-2x text-primary mb-3"></i>
-                        <h5 class="mb-3">{title}</h5>
-                        <p class="mb-0">{desc}</p>
-                    </div>
-                </div>"""
-
-INDEX += """
-            </div>
-            <div class="text-center mt-5"><a href="service.html" class="btn btn-primary py-3 px-5">Explore Services</a></div>
-        </div>
-    </div>
-
+    if i == 0:
+        INDEX += """
     <div class="container-xxl py-5">
-        <div class="container py-5">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Why Partner With Us?</h6>
-                <h1 class="mb-5">A Practical Approach to International Trade</h1>
-            </div>
-            <div class="row g-4">
-"""
-
-for i, (icon, title, desc) in enumerate([
-    ("fa-check-circle", "Reliable Sourcing", "We focus on identifying dependable suppliers and suitable products."),
-    ("fa-award", "Quality Focus", "We emphasize product quality and buyer requirements."),
-    ("fa-comments", "Transparent Communication", "Clear communication throughout the trade process."),
-    ("fa-chart-line", "Market Understanding", "Connecting Indian agricultural opportunities with international demand."),
-    ("fa-sliders-h", "Flexible Solutions", "Sourcing based on product, quantity and destination requirements."),
-    ("fa-handshake", "Long-Term Partnerships", "We aim to build sustainable relationships with buyers, suppliers and business partners."),
-]):
-    INDEX += f"""
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.{i+1}s">
-                    <div class="d-flex why-item">
-                        <i class="fa {icon} fa-2x text-primary flex-shrink-0 mt-1"></i>
-                        <div class="ms-3"><h5>{title}</h5><p class="mb-0">{desc}</p></div>
-                    </div>
-                </div>"""
-
-INDEX += f"""
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid overflow-hidden py-5 px-lg-0">
-        <div class="container about py-5 px-lg-0">
-            <div class="row g-5 mx-lg-0 align-items-center">
-                <div class="col-lg-6 ps-lg-0 wow fadeInLeft" data-wow-delay="0.1s" style="min-height: 400px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute img-fluid w-100 h-100" src="img/markets.jpg" style="object-fit: cover;" alt="Global markets">
-                    </div>
-                </div>
-                <div class="col-lg-6 about-text wow fadeInUp" data-wow-delay="0.3s">
-                    <h6 class="text-secondary text-uppercase mb-3">Global Markets</h6>
-                    <h1 class="mb-4">From India to Global Markets</h1>
-                    <p class="mb-4">Our target markets include regions where agricultural and food trade opportunities continue to grow.</p>
-                    <div class="row g-3 mb-4">
-                        <div class="col-sm-6"><div class="market-item"><h5 class="mb-0">Middle East</h5></div></div>
-                        <div class="col-sm-6"><div class="market-item"><h5 class="mb-0">Africa</h5></div></div>
-                        <div class="col-sm-6"><div class="market-item"><h5 class="mb-0">Southeast Asia</h5></div></div>
-                        <div class="col-sm-6"><div class="market-item"><h5 class="mb-0">Europe</h5></div></div>
-                    </div>
-                    <p class="mb-4">We also explore opportunities in other international markets based on product suitability and buyer interest.</p>
-                    <a href="markets.html" class="btn btn-primary py-3 px-5">Explore Markets</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-xxl py-5 bg-light">
         <div class="container py-5">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="text-secondary text-uppercase">How We Work</h6>
@@ -556,14 +436,6 @@ INDEX += f"""
             </div>
             <div class="row g-4 justify-content-center">
 """
-
-for i, (num, title, desc) in enumerate([
-    ("01", "Requirement", "Understand buyer and product requirements."),
-    ("02", "Source", "Identify suitable products and suppliers."),
-    ("03", "Verify & Coordinate", "Align product details, quality needs and commercial discussions."),
-    ("04", "Trade", "Coordinate documentation and logistics requirements."),
-    ("05", "Deliver", "Support shipment through reliable logistics partners."),
-]):
     INDEX += f"""
                 <div class="col-6 col-md-4 col-lg wow fadeInUp" data-wow-delay="0.{i+1}s" style="min-width:160px;">
                     <div class="process-item">
@@ -601,6 +473,17 @@ INDEX += """
     </div>
 """
 
+PRODUCT_CARDS = [
+    ("fruits.jpg", "Fruits", "Seasonal fresh fruits including papaya, mango, banana, grapes and pomegranate."),
+    ("vegetables.jpg", "Vegetables", "Onion, potato and other vegetables based on market and buyer needs."),
+    ("chilli.jpg", "Chilli & Spices", "Indian chilli, red chilli and selected spice varieties."),
+    ("rice.jpg", "Rice & Grains", "Rice, grains and related agricultural commodities."),
+    ("pulses.jpg", "Pulses", "Pulses and related food commodities for trade opportunities."),
+    ("commodities.jpg", "Agricultural Commodities", "Broader commodity sourcing aligned to buyer requirements."),
+    ("processed.jpg", "Processed Food Products", "Selected processed food opportunities subject to demand and feasibility."),
+    ("custom.jpg", "Custom Sourcing", "Tailored sourcing for specific product, quantity and destination needs."),
+]
+
 ABOUT = page_header("About Us", "About Us") + f"""
     <div class="container-fluid overflow-hidden py-5 px-lg-0">
         <div class="container about py-5 px-lg-0">
@@ -617,6 +500,7 @@ ABOUT = page_header("About Us", "About Us") + f"""
                     <p class="mb-4">Our business is built around responsible sourcing, quality products, transparent communication and long-term business relationships.</p>
                     <p class="mb-4">We aim to support international buyers with carefully sourced agricultural products from India while exploring opportunities to bring selected quality products from global markets to India.</p>
                     <p class="mb-4 fw-medium fs-5">Source responsibly. Trade transparently. Deliver reliably.</p>
+                    <p class="mb-4">Learn more about <a href="exports.html">exports from India</a>, <a href="imports.html">imports to India</a>, and our <a href="markets.html">target markets</a>.</p>
                     <a href="contact.html" class="btn btn-primary py-3 px-5">Get in Touch</a>
                 </div>
             </div>
@@ -735,6 +619,7 @@ SERVICES = page_header("Services", "Services") + f"""
                 <h6 class="text-secondary text-uppercase">Our Services</h6>
                 <h1 class="mb-3">International Trading Services</h1>
                 <p>{COMPANY} supports international trade through sourcing, coordination and partnership-focused engagement. Where specialised activities such as freight or certification are required, we coordinate with appropriate external partners.</p>
+                <p>Commercial terms such as FOB or CIF can be discussed on enquiry. We coordinate documentation with logistics partners rather than operating freight ourselves.</p>
             </div>
             <div class="row g-4">
 """
@@ -841,6 +726,7 @@ QUOTE = page_header("Request a Quote", "Request a Quote") + f"""
                     <h6 class="text-secondary text-uppercase mb-3">Get a Quote</h6>
                     <h1 class="mb-4">Share Your Trade Requirement</h1>
                     <p class="mb-4">Provide product, quantity and destination or origin details. Our team will review your enquiry and explore suitable sourcing opportunities.</p>
+                    <p class="mb-4">Commercial terms such as FOB or CIF can be discussed once we understand the product, quantity and destination. Freight and documentation are coordinated with logistics partners.</p>
                     <div class="d-flex align-items-center mb-4">
                         <i class="fa fa-phone-alt fa-2x flex-shrink-0 bg-primary p-3 text-white"></i>
                         <div class="ps-4"><h6>Call us</h6><h3 class="text-primary m-0"><a href="tel:{PHONE_TEL}">{PHONE}</a></h3></div>
@@ -860,6 +746,24 @@ QUOTE = page_header("Request a Quote", "Request a Quote") + f"""
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+"""
+
+PRIVACY = page_header("Privacy Policy", "Privacy Policy") + f"""
+    <div class="container-xxl py-5">
+        <div class="container py-5" style="max-width: 820px;">
+            <h6 class="text-secondary text-uppercase mb-3">Privacy Policy</h6>
+            <h1 class="mb-4">How we handle enquiries</h1>
+            <p class="mb-4">This page explains how {COMPANY} uses information you send through this website. We do not sell personal information.</p>
+            <h4 class="mb-3">What we collect</h4>
+            <p class="mb-4">When you submit the business enquiry form, we receive the details you enter — typically name, company, email, phone, country, enquiry type, product, quantity, destination or origin, and your message. If you contact us by phone, WhatsApp or email, we also receive the information you choose to share in that conversation.</p>
+            <h4 class="mb-3">How we use it</h4>
+            <p class="mb-4">We use enquiry details only to understand your requirement and respond. Form submissions are processed by our website host (Netlify Forms) and then reviewed by our team.</p>
+            <h4 class="mb-3">How long we keep it</h4>
+            <p class="mb-4">We keep enquiry records for as long as they are useful for ongoing trade discussions, then delete them when they are no longer needed.</p>
+            <h4 class="mb-3">Contact</h4>
+            <p class="mb-0">For a privacy question or a request about your enquiry data, email <a href="mailto:{EMAIL}">{EMAIL}</a> or write to {COMPANY}, {ADDRESS}.</p>
         </div>
     </div>
 """
@@ -920,8 +824,9 @@ if __name__ == "__main__":
     write("markets.html", f"Markets | {COMPANY}", "markets", MARKETS)
     write("contact.html", f"Contact | {COMPANY}", "contact", CONTACT)
     write("quote.html", f"Request a Quote | {COMPANY}", "contact", QUOTE)
-    write("thank-you.html", f"Thank You | {COMPANY}", "contact", THANK_YOU)
-    write("404.html", f"Page Not Found | {COMPANY}", "home", NOT_FOUND)
+    write("privacy.html", f"Privacy Policy | {COMPANY}", "home", PRIVACY)
+    write("thank-you.html", f"Thank You | {COMPANY}", "contact", THANK_YOU, noindex=True)
+    write("404.html", f"Page Not Found | {COMPANY}", "home", NOT_FOUND, noindex=True)
 
     for old, target in [
         ("feature.html", "about.html"),
