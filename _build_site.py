@@ -84,7 +84,6 @@ def head(title: str, description: str, page: str, noindex: bool = False) -> str:
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <style>body{{font-family:"Plus Jakarta Sans",sans-serif;}} h1,h2,h3,h4,h5{{font-weight:700;}}</style>
@@ -92,11 +91,7 @@ def head(title: str, description: str, page: str, noindex: bool = False) -> str:
 </head>
 
 <body>
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
+    <a class="skip-link" href="#main">Skip to content</a>
 """
 
 
@@ -118,7 +113,7 @@ def nav(active: str) -> str:
         <a href="index.html" class="navbar-brand navbar-brand-logo px-3 px-lg-4">
             <img src="img/logo.svg" alt="{COMPANY}">
         </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -194,10 +189,7 @@ FOOTER = f"""
     <a href="{WHATSAPP}" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
@@ -234,8 +226,11 @@ def page_header(title: str, crumb: str, image: str | None = None) -> str:
 """
 
 
-def product_href(name: str) -> str:
-    return f"quote.html?product={quote(name)}"
+def product_href(name: str, enquiry: str = "Export from India") -> str:
+    href = f"quote.html?product={quote(name)}"
+    if enquiry:
+        href += f"&type={quote(enquiry)}"
+    return href
 
 
 ENQUIRY_FORM = """
@@ -319,7 +314,7 @@ ENQUIRY_FORM = """
 
 
 def write(name: str, title: str, active: str, body: str, description: str = None, noindex: bool = False):
-    html = head(title, description or SEO_DESC, name, noindex) + nav(active) + body + FOOTER
+    html = head(title, description or SEO_DESC, name, noindex) + nav(active) + '<main id="main">\n' + body + "</main>\n" + FOOTER
     (ROOT / name).write_text(html, encoding="utf-8")
     print("wrote", name)
 
@@ -328,7 +323,7 @@ def write(name: str, title: str, active: str, body: str, description: str = None
 
 INDEX = f"""
     <div class="hero-single">
-        <img src="img/carousel-1.jpg" alt="Indian agricultural fields for export" loading="eager">
+        <img src="img/carousel-1.jpg" alt="Indian agricultural fields for export" width="1920" height="1080" loading="eager" fetchpriority="high">
         <div class="hero-overlay">
             <div class="container">
                 <div class="row justify-content-start">
@@ -452,7 +447,7 @@ INDEX = f"""
                     <div class="cta-card text-white">
                         <h3 class="text-white mb-3">Have a product to import into India?</h3>
                         <p class="mb-4">Share the opportunity and we will review commercial fit together.</p>
-                        <a href="imports.html" class="btn btn-secondary py-3 px-4">Discuss Your Requirement</a>
+                        <a href="quote.html?type=Import%20to%20India" class="btn btn-secondary py-3 px-4">Discuss Your Requirement</a>
                     </div>
                 </div>
             </div>
@@ -523,7 +518,7 @@ EXPORTS = page_header("Exports", "Exports", "img/export-hero.jpg") + f"""
                 <div class="col-md-6 col-lg-4"><a class="product-card" href="{product_href('Chilli & Spices')}"><div class="product-img"><img src="img/products/chilli.jpg" alt="Chilli and Spices" loading="lazy"></div><div class="p-4"><h4>Chilli &amp; Spices</h4><p>Indian chilli, red chilli and selected spices for global buyers.</p><span class="enquire-link">Enquire</span></div></a></div>
                 <div class="col-md-6 col-lg-4"><a class="product-card" href="{product_href('Grains & Pulses')}"><div class="product-img"><img src="img/products/rice.jpg" alt="Grains and Pulses" loading="lazy"></div><div class="p-4"><h4>Grains &amp; Pulses</h4><p>Rice, pulses, grains and other agricultural commodities.</p><span class="enquire-link">Enquire</span></div></a></div>
                 <div class="col-md-6 col-lg-4"><a class="product-card" href="{product_href('Custom Sourcing')}"><div class="product-img"><img src="img/products/custom.jpg" alt="Custom Sourcing" loading="lazy"></div><div class="p-4"><h4>Custom Sourcing</h4><p>Products sourced according to specific buyer requirements.</p><span class="enquire-link">Enquire</span></div></a></div>
-                <div class="col-md-6 col-lg-4"><div class="cta-tile"><h4 class="text-white mb-3">Share your requirement</h4><p class="text-white">Tell us the product, quantity, quality preference and destination.</p><a href="quote.html" class="btn btn-secondary py-2 px-4">Request a Quote</a></div></div>
+                <div class="col-md-6 col-lg-4"><div class="cta-tile"><h4 class="text-white mb-3">Share your requirement</h4><p class="text-white">Tell us the product, quantity, quality preference and destination.</p><a href="quote.html?type=Export%20from%20India" class="btn btn-secondary py-2 px-4">Request a Quote</a></div></div>
             </div>
         </div>
     </div>
@@ -545,7 +540,7 @@ IMPORTS = page_header("Imports", "Imports", "img/import-hero.jpg") + f"""
             <div class="text-center mt-5">
                 <h4 class="mb-3">Have a product to import into India?</h4>
                 <p class="mb-4">Share the details and we will review the opportunity together.</p>
-                <a href="quote.html" class="btn btn-primary py-3 px-5">Discuss Your Requirement</a>
+                <a href="quote.html?type=Import%20to%20India" class="btn btn-primary py-3 px-5">Discuss Your Requirement</a>
             </div>
         </div>
     </div>
@@ -665,7 +660,7 @@ CONTACT = page_header("Contact", "Contact", "img/cta-bg.jpg") + f"""
                         <hr class="border-light">
                         <h5 class="text-white mb-3">Office Location</h5>
                         <div class="ratio ratio-4x3 bg-white">
-                            <iframe src="https://www.google.com/maps?q=Garoba+Maidan+Nagpur+440008&output=embed" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="{COMPANY} office location"></iframe>
+                            <iframe src="https://www.google.com/maps?q=Plot+No.+188,+CA+Road,+Garoba+Maidan,+Nagpur,+Maharashtra+440008&output=embed" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="{COMPANY} office location"></iframe>
                         </div>
                     </div>
                 </div>
@@ -770,15 +765,69 @@ REDIRECT = """<!DOCTYPE html>
 
 if __name__ == "__main__":
     write("index.html", f"{COMPANY} | Import & Export Trading Company", "home", INDEX)
-    write("about.html", f"About Us | {COMPANY}", "about", ABOUT)
-    write("exports.html", f"Exports from India | {COMPANY}", "exports", EXPORTS)
-    write("imports.html", f"Imports to India | {COMPANY}", "imports", IMPORTS)
-    write("products.html", f"Products | {COMPANY}", "products", PRODUCTS)
-    write("service.html", f"Services | {COMPANY}", "services", SERVICES)
-    write("markets.html", f"Markets | {COMPANY}", "markets", MARKETS)
-    write("contact.html", f"Contact | {COMPANY}", "contact", CONTACT)
-    write("quote.html", f"Request a Quote | {COMPANY}", "contact", QUOTE)
-    write("privacy.html", f"Privacy Policy | {COMPANY}", "home", PRIVACY)
+    write(
+        "about.html",
+        f"About Us | {COMPANY}",
+        "about",
+        ABOUT,
+        f"{COMPANY} is an India-based import and export trading company in Nagpur, focused on agricultural and food products.",
+    )
+    write(
+        "exports.html",
+        f"Exports from India | {COMPANY}",
+        "exports",
+        EXPORTS,
+        f"Agricultural products {COMPANY} sources from India for international buyers. Availability and specifications are confirmed on enquiry.",
+    )
+    write(
+        "imports.html",
+        f"Imports to India | {COMPANY}",
+        "imports",
+        IMPORTS,
+        f"{COMPANY} reviews selected international products for the Indian market based on demand, quality and commercial fit.",
+    )
+    write(
+        "products.html",
+        f"Products | {COMPANY}",
+        "products",
+        PRODUCTS,
+        f"Agricultural and food categories sourced by {COMPANY}: fruits, vegetables, chilli, rice, pulses and custom sourcing.",
+    )
+    write(
+        "service.html",
+        f"Services | {COMPANY}",
+        "services",
+        SERVICES,
+        f"{COMPANY} supports global sourcing, supplier coordination and documentation. Freight is coordinated with logistics partners.",
+    )
+    write(
+        "markets.html",
+        f"Markets | {COMPANY}",
+        "markets",
+        MARKETS,
+        f"Target markets for {COMPANY} include the Middle East, Africa, Southeast Asia and Europe, subject to product fit and buyer interest.",
+    )
+    write(
+        "contact.html",
+        f"Contact | {COMPANY}",
+        "contact",
+        CONTACT,
+        f"Contact {COMPANY} in Nagpur to discuss export, import or supplier requirements. Phone {PHONE}.",
+    )
+    write(
+        "quote.html",
+        f"Request a Quote | {COMPANY}",
+        "contact",
+        QUOTE,
+        f"Request a quote from {COMPANY} for agricultural sourcing from India or selected imports into India.",
+    )
+    write(
+        "privacy.html",
+        f"Privacy Policy | {COMPANY}",
+        "home",
+        PRIVACY,
+        f"How {COMPANY} uses enquiry information submitted through this website.",
+    )
     write("thank-you.html", f"Thank You | {COMPANY}", "contact", THANK_YOU, noindex=True)
     write("404.html", f"Page Not Found | {COMPANY}", "home", NOT_FOUND, noindex=True)
 

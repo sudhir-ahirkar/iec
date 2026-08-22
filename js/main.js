@@ -1,33 +1,45 @@
-(function ($) {
+(function () {
     "use strict";
 
-    setTimeout(function () {
-        if ($("#spinner").length > 0) {
-            $("#spinner").removeClass("show");
-        }
-    }, 1);
-
-    if (typeof WOW === "function") {
-        new WOW().init();
+    var back = document.querySelector(".back-to-top");
+    window.addEventListener("scroll", function () {
+        if (!back) return;
+        back.style.display = window.scrollY > 300 ? "flex" : "none";
+    });
+    if (back) {
+        back.addEventListener("click", function (event) {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
     }
 
-    $(".sticky-top").css("top", "0px");
+    var params = new URLSearchParams(window.location.search);
+    var product = params.get("product");
+    var type = params.get("type");
+    var productField = document.getElementById("product");
+    var typeField = document.getElementById("enquiryType");
 
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) {
-            $(".back-to-top").fadeIn("slow");
-        } else {
-            $(".back-to-top").fadeOut("slow");
-        }
-    });
-
-    $(".back-to-top").click(function () {
-        $("html, body").animate({ scrollTop: 0 }, 800, "easeInOutExpo");
-        return false;
-    });
-
-    var product = new URLSearchParams(window.location.search).get("product");
-    if (product && $("#product").length) {
-        $("#product").val(product);
+    if (product && productField) {
+        productField.value = product;
     }
-})(jQuery);
+    if (type && typeField) {
+        var match = Array.prototype.find.call(typeField.options, function (option) {
+            return option.value === type || option.text === type;
+        });
+        if (match) {
+            typeField.value = match.value || match.text;
+        }
+    }
+
+    if (product) {
+        var message =
+            "Hello Global Route Company, I would like to enquire about sourcing from India. Product: " +
+            product +
+            ".";
+        var url =
+            "https://wa.me/919225159719?text=" + encodeURIComponent(message);
+        document.querySelectorAll('a[href*="wa.me/919225159719"]').forEach(function (link) {
+            link.setAttribute("href", url);
+        });
+    }
+})();
