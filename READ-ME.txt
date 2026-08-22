@@ -1,11 +1,4 @@
 Global Route Company Website
-============================
-Built on the Logistica HTML template structure (Bootstrap 5).
-Static site for GitHub → Netlify deployment.
-
-Contact forms use Netlify Forms (data-netlify="true").
-Configure form email notifications in the Netlify dashboard after deploy.
-
-Company: Global Route Company
-Phone: +91 9225159719
-Email: lokeshghagare@gmail.com
+Built on the Logistica HTML template structure.
+Static site — deploy via GitHub → Netlify.
+Forms use Netlify Forms (data-netlify). Set email notifications in the Netlify dashboard (not shown on the public site).

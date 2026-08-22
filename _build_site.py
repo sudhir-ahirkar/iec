@@ -10,6 +10,7 @@ PHONE = "+91 9225159719"
 PHONE_TEL = "+919225159719"
 EMAIL = "lokeshghagare@gmail.com"
 ADDRESS = "Plot No. 188, CA Road, Garoba Maidan, Nagpur, Maharashtra (Near Dalvi Hospital) - 440008"
+WHATSAPP = "https://wa.me/919225159719?text=Hello%20Global%20Route%20Company%2C%20I%20would%20like%20to%20enquire%20about%20sourcing%20from%20India."
 
 SEO_KEYWORDS = (
     "Import Export Company India, Agricultural Exporter India, Agricultural Products Export, "
@@ -34,7 +35,8 @@ def head(title: str, description: str = SEO_DESC) -> str:
     <meta content="{SEO_KEYWORDS}" name="keywords">
     <meta content="{description}" name="description">
     <link href="img/favicon.svg" rel="icon" type="image/svg+xml">
-    <link href="img/logo-icon.png" rel="apple-touch-icon">
+    <link href="img/favicon-32.png" rel="icon" type="image/png" sizes="32x32">
+    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -78,8 +80,12 @@ def nav(active: str) -> str:
                 <a href="service.html" class="{c('services')}">Services</a>
                 <a href="markets.html" class="{c('markets')}">Markets</a>
                 <a href="contact.html" class="{c('contact')}">Contact</a>
+                <a href="{WHATSAPP}" class="nav-item nav-link d-lg-none" target="_blank" rel="noopener">WhatsApp</a>
             </div>
-            <a href="tel:{PHONE_TEL}" class="navbar-phone pe-lg-4 d-none d-lg-block"><i class="fa fa-phone-alt text-primary me-2"></i>{PHONE}</a>
+            <div class="navbar-actions d-none d-lg-flex align-items-center pe-lg-4">
+                <a href="tel:{PHONE_TEL}" class="navbar-phone me-3"><i class="fa fa-phone-alt text-primary me-2"></i>{PHONE}</a>
+                <a href="{WHATSAPP}" class="btn btn-whatsapp py-2 px-3" target="_blank" rel="noopener"><i class="fab fa-whatsapp me-1"></i>WhatsApp</a>
+            </div>
         </div>
     </nav>
 """
@@ -94,6 +100,7 @@ FOOTER = f"""
                     <p class="footer-tagline">{TAGLINE}</p>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>{ADDRESS}</p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a class="text-light" href="tel:{PHONE_TEL}">{PHONE}</a></p>
+                    <p class="mb-2"><i class="fab fa-whatsapp me-3"></i><a class="text-light" href="{WHATSAPP}" target="_blank" rel="noopener">WhatsApp</a></p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i><a class="text-light" href="mailto:{EMAIL}">{EMAIL}</a></p>
                 </div>
                 <div class="col-lg-2 col-md-6">
@@ -120,6 +127,7 @@ FOOTER = f"""
                     <p>Tell us what you are looking for and our team will explore suitable sourcing opportunities.</p>
                     <a href="contact.html" class="btn btn-primary py-2 px-4 mt-2">Contact Us</a>
                     <a href="quote.html" class="btn btn-outline-light py-2 px-4 mt-2">Request a Quote</a>
+                    <a href="{WHATSAPP}" class="btn btn-whatsapp py-2 px-4 mt-2" target="_blank" rel="noopener">WhatsApp</a>
                 </div>
             </div>
         </div>
@@ -134,6 +142,7 @@ FOOTER = f"""
         </div>
     </div>
 
+    <a href="{WHATSAPP}" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="bi bi-arrow-up"></i></a>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -166,12 +175,7 @@ def page_header(title: str, crumb: str) -> str:
 
 
 ENQUIRY_FORM = """
-                    <!-- Backend integration: Netlify Forms (data-netlify). After deploy, enable form
-                         notifications in the Netlify dashboard. Or set form action to Formspree/email API. -->
-                    <div class="form-integration-note">
-                        This enquiry form is ready for Netlify Forms. Configure email notifications in your Netlify site settings after deploy.
-                    </div>
-                    <form name="business-enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <form name="business-enquiry" method="POST" action="thank-you.html" data-netlify="true" netlify-honeypot="bot-field">
                         <input type="hidden" name="form-name" value="business-enquiry">
                         <p class="d-none"><label>Don’t fill this out: <input name="bot-field"></label></p>
                         <div class="row g-3">
@@ -804,7 +808,7 @@ CONTACT = page_header("Contact", "Contact") + f"""
                 <div class="col-lg-6 contact-form wow fadeIn" data-wow-delay="0.1s">
                     <h6 class="text-secondary text-uppercase">Business Enquiry</h6>
                     <h1 class="mb-4">Tell Us What You Need</h1>
-                    <p class="mb-4">Whether you are looking to source products from India, discuss an import opportunity, or explore a supplier partnership — share your details and we will respond.</p>
+                    <p class="mb-4">Whether you are looking to source products from India, discuss an import opportunity, or explore a supplier partnership — share your details and we will respond. You can also reach us on WhatsApp.</p>
                     <div class="bg-light p-4">
 {ENQUIRY_FORM}
                     </div>
@@ -815,6 +819,7 @@ CONTACT = page_header("Contact", "Contact") + f"""
                         <p class="mb-3"><i class="fa fa-building me-3"></i><strong>{COMPANY}</strong></p>
                         <p class="mb-4"><i class="fa fa-map-marker-alt me-3"></i>{ADDRESS}</p>
                         <p class="mb-3"><i class="fa fa-phone-alt me-3"></i><a class="text-white" href="tel:{PHONE_TEL}">{PHONE}</a></p>
+                        <p class="mb-3"><i class="fab fa-whatsapp me-3"></i><a class="text-white" href="{WHATSAPP}" target="_blank" rel="noopener">Chat on WhatsApp</a></p>
                         <p class="mb-4"><i class="fa fa-envelope me-3"></i><a class="text-white" href="mailto:{EMAIL}">{EMAIL}</a></p>
                         <hr class="border-light">
                         <h5 class="text-white mb-3">Office Location</h5>
@@ -840,6 +845,10 @@ QUOTE = page_header("Request a Quote", "Request a Quote") + f"""
                         <i class="fa fa-phone-alt fa-2x flex-shrink-0 bg-primary p-3 text-white"></i>
                         <div class="ps-4"><h6>Call us</h6><h3 class="text-primary m-0"><a href="tel:{PHONE_TEL}">{PHONE}</a></h3></div>
                     </div>
+                    <div class="d-flex align-items-center mb-4">
+                        <i class="fab fa-whatsapp fa-2x flex-shrink-0 bg-primary p-3 text-white"></i>
+                        <div class="ps-4"><h6>WhatsApp</h6><h5 class="text-primary m-0"><a href="{WHATSAPP}" target="_blank" rel="noopener">Message us</a></h5></div>
+                    </div>
                     <div class="d-flex align-items-center">
                         <i class="fa fa-envelope fa-2x flex-shrink-0 bg-primary p-3 text-white"></i>
                         <div class="ps-4"><h6>Email us</h6><h5 class="text-primary m-0"><a href="mailto:{EMAIL}">{EMAIL}</a></h5></div>
@@ -849,6 +858,22 @@ QUOTE = page_header("Request a Quote", "Request a Quote") + f"""
                     <div class="bg-light p-5 wow fadeIn" data-wow-delay="0.3s">
 {ENQUIRY_FORM}
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+"""
+
+THANK_YOU = page_header("Thank You", "Thank You") + f"""
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <i class="fa fa-check-circle display-1 text-primary mb-4"></i>
+                    <h1 class="mb-4">Thank you for your enquiry</h1>
+                    <p class="mb-4">We have received your message. Our team will review your requirement and get back to you.</p>
+                    <a class="btn btn-primary py-3 px-5 me-2 mb-2" href="index.html">Back to Home</a>
+                    <a class="btn btn-whatsapp py-3 px-5 mb-2" href="{WHATSAPP}" target="_blank" rel="noopener"><i class="fab fa-whatsapp me-2"></i>WhatsApp</a>
                 </div>
             </div>
         </div>
@@ -895,6 +920,7 @@ if __name__ == "__main__":
     write("markets.html", f"Markets | {COMPANY}", "markets", MARKETS)
     write("contact.html", f"Contact | {COMPANY}", "contact", CONTACT)
     write("quote.html", f"Request a Quote | {COMPANY}", "contact", QUOTE)
+    write("thank-you.html", f"Thank You | {COMPANY}", "contact", THANK_YOU)
     write("404.html", f"Page Not Found | {COMPANY}", "home", NOT_FOUND)
 
     for old, target in [
@@ -910,7 +936,7 @@ if __name__ == "__main__":
         f"{COMPANY} Website\n"
         "Built on the Logistica HTML template structure.\n"
         "Static site — deploy via GitHub → Netlify.\n"
-        "Forms use Netlify Forms (data-netlify). Configure email notifications in Netlify.\n",
+        "Forms use Netlify Forms (data-netlify). Set email notifications in the Netlify dashboard (not shown on the public site).\n",
         encoding="utf-8",
     )
     print("done")
