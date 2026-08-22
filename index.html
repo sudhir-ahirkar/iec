@@ -29,10 +29,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <style>body{font-family:"Plus Jakarta Sans",sans-serif;} h1,h2,h3,h4,h5,.display-3{font-weight:700;}</style>
+    <style>body{font-family:"Plus Jakarta Sans",sans-serif;} h1,h2,h3,h4,h5{font-weight:700;}</style>
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Global Route Company", "url": "https://groute.co.in/", "logo": "https://groute.co.in/img/logo.svg", "email": "lokeshghagare@gmail.com", "telephone": "+91 9225159719", "description": "Global Route Company is an India-based import and export trading company connecting agricultural products, suppliers and global buyers through reliable sourcing and international trade solutions.", "address": {"@type": "PostalAddress", "streetAddress": "Plot No. 188, CA Road, Garoba Maidan", "addressLocality": "Nagpur", "addressRegion": "Maharashtra", "postalCode": "440008", "addressCountry": "IN"}}</script>
 </head>
 
@@ -43,7 +42,16 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
+    <div class="topbar d-none d-md-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span>Nagpur, India</span>
+            <div class="topbar-links">
+                <a href="mailto:lokeshghagare@gmail.com">lokeshghagare@gmail.com</a>
+                <a href="tel:+919225159719">+91 9225159719 <span>IST</span></a>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
         <a href="index.html" class="navbar-brand navbar-brand-logo px-3 px-lg-4">
             <img src="img/logo.svg" alt="Global Route Company">
         </a>
@@ -61,100 +69,60 @@
                 <a href="https://wa.me/919225159719?text=Hello%20Global%20Route%20Company%2C%20I%20would%20like%20to%20enquire%20about%20sourcing%20from%20India." class="nav-item nav-link d-lg-none" target="_blank" rel="noopener">WhatsApp</a>
             </div>
             <div class="navbar-actions d-none d-lg-flex align-items-center pe-lg-4">
-                <a href="tel:+919225159719" class="navbar-phone me-3"><i class="fa fa-phone-alt text-primary me-2"></i>+91 9225159719 <span class="navbar-tz">IST</span></a>
                 <a href="quote.html" class="btn btn-primary py-2 px-3 me-2">Request a Quote</a>
                 <a href="https://wa.me/919225159719?text=Hello%20Global%20Route%20Company%2C%20I%20would%20like%20to%20enquire%20about%20sourcing%20from%20India." class="btn btn-whatsapp py-2 px-3" target="_blank" rel="noopener"><i class="fab fa-whatsapp me-1"></i>WhatsApp</a>
             </div>
         </div>
     </nav>
 
-    <div class="container-fluid p-0 pb-5">
-        <div class="owl-carousel header-carousel position-relative mb-5">
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="img/carousel-1.jpg" alt="Indian agricultural fields for export">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(11, 29, 54, .58);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">Import &amp; Export | Global Sourcing | Agricultural Trade</h5>
-                                <h1 class="display-3 text-white animated slideInDown mb-4">Connecting India to <span class="text-primary">Global Markets</span></h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Global Route Company is an international import and export trading company focused on connecting quality products, trusted suppliers and global buyers.</p>
-                                <a href="products.html" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Explore Our Products</a>
-                                <a href="quote.html" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Request a Quote</a>
-                            </div>
-                        </div>
+    <div class="hero-single">
+        <img src="img/carousel-1.jpg" alt="Indian agricultural fields for export" loading="eager">
+        <div class="hero-overlay">
+            <div class="container">
+                <div class="row justify-content-start">
+                    <div class="col-11 col-lg-7">
+                        <p class="hero-kicker">Import &amp; export · Agricultural trade · India</p>
+                        <h1 class="hero-title">Connecting India to <span>global markets</span></h1>
+                        <p class="hero-lead">Global Route Company sources agricultural products from India for international buyers and explores selected import opportunities into India.</p>
+                        <a href="quote.html" class="btn btn-primary py-3 px-4 me-3">Request a Quote</a>
+                        <a href="products.html" class="btn btn-outline-light py-3 px-4">View Products</a>
                     </div>
                 </div>
-            </div>
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="img/carousel-2.jpg" alt="International trade and shipping">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(11, 29, 54, .58);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">India → World | World → India</h5>
-                                <h1 class="display-3 text-white animated slideInDown mb-4">Reliable Sourcing for <span class="text-primary">International Trade</span></h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">We source agricultural products from India for international markets and explore reliable products from around the world for the Indian market.</p>
-                                <a href="exports.html" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Export from India</a>
-                                <a href="imports.html" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Import to India</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid tagline-strip py-3">
-        <div class="container">
-            <div class="row g-3">
-                <div class="col-md-3 tagline-item wow fadeInUp" data-wow-delay="0.1s">India <span>→</span> Global Markets</div>
-                <div class="col-md-3 tagline-item wow fadeInUp" data-wow-delay="0.2s">Global Markets <span>→</span> India</div>
-                <div class="col-md-3 tagline-item wow fadeInUp" data-wow-delay="0.3s">Agriculture <span>→</span> International Trade</div>
-                <div class="col-md-3 tagline-item wow fadeInUp" data-wow-delay="0.4s">Sourcing <span>→</span> Partnerships</div>
             </div>
         </div>
     </div>
 
     <div class="container-xxl py-5">
         <div class="container py-5">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Export From India</h6>
-                <h1 class="mb-4">Taking India's Agricultural Products to the World</h1>
-                <p class="mb-5 mx-auto" style="max-width: 760px;">India is home to a diverse agricultural ecosystem producing a wide range of fruits, vegetables, spices, grains and other food products. We aim to connect these products with international markets through reliable sourcing and professional trade coordination.</p>
+            <div class="text-center mx-auto mb-5" style="max-width: 720px;">
+                <h6 class="text-secondary text-uppercase">Export from India</h6>
+                <h2 class="mb-3">Agricultural products for international buyers</h2>
+                <p class="mb-0">We source fruits, vegetables, spices, grains and related food products according to buyer requirements, seasonality and destination needs.</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/fruits.jpg" alt="Fresh fruits"></div>
-                        <h4 class="mb-3">Fresh Fruits</h4>
-                        <p>Papaya, mango, banana, grapes, pomegranate and other seasonal fruits sourced according to buyer requirements.</p>
-                        <a class="btn-slide mt-2" href="exports.html"><i class="fa fa-arrow-right"></i><span>View Exports</span></a>
-                    </div>
+                <div class="col-md-6 col-lg-3">
+                    <a class="product-card" href="quote.html?product=Fresh%20Fruits">
+                        <div class="product-img"><img src="img/products/fruits.jpg" alt="Fresh fruits" loading="lazy"></div>
+                        <div class="p-4"><h4>Fresh Fruits</h4><p>Papaya, mango, banana, grapes, pomegranate and other seasonal fruits.</p><span class="enquire-link">Enquire</span></div>
+                    </a>
                 </div>
-                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/vegetables.jpg" alt="Fresh vegetables"></div>
-                        <h4 class="mb-3">Fresh Vegetables</h4>
-                        <p>Onion, potato and other vegetables based on market conditions and buyer specifications.</p>
-                        <a class="btn-slide mt-2" href="exports.html"><i class="fa fa-arrow-right"></i><span>View Exports</span></a>
-                    </div>
+                <div class="col-md-6 col-lg-3">
+                    <a class="product-card" href="quote.html?product=Fresh%20Vegetables">
+                        <div class="product-img"><img src="img/products/vegetables.jpg" alt="Fresh vegetables" loading="lazy"></div>
+                        <div class="p-4"><h4>Fresh Vegetables</h4><p>Onion, potato and other vegetables based on buyer specifications.</p><span class="enquire-link">Enquire</span></div>
+                    </a>
                 </div>
-                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/chilli.jpg" alt="Chilli and spices"></div>
-                        <h4 class="mb-3">Chilli &amp; Spices</h4>
-                        <p>Indian chilli, red chilli and selected spices for international food and commodity buyers.</p>
-                        <a class="btn-slide mt-2" href="exports.html"><i class="fa fa-arrow-right"></i><span>View Exports</span></a>
-                    </div>
+                <div class="col-md-6 col-lg-3">
+                    <a class="product-card" href="quote.html?product=Chilli%20%26%20Spices">
+                        <div class="product-img"><img src="img/products/chilli.jpg" alt="Chilli and spices" loading="lazy"></div>
+                        <div class="p-4"><h4>Chilli &amp; Spices</h4><p>Indian chilli, red chilli and selected spices for food and commodity buyers.</p><span class="enquire-link">Enquire</span></div>
+                    </a>
                 </div>
-                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/rice.jpg" alt="Rice and grains"></div>
-                        <h4 class="mb-3">Grains &amp; Pulses</h4>
-                        <p>Rice, pulses, grains and other agricultural commodities sourced for export markets.</p>
-                        <a class="btn-slide mt-2" href="exports.html"><i class="fa fa-arrow-right"></i><span>View Exports</span></a>
-                    </div>
+                <div class="col-md-6 col-lg-3">
+                    <a class="product-card" href="quote.html?product=Grains%20%26%20Pulses">
+                        <div class="product-img"><img src="img/products/rice.jpg" alt="Rice and grains" loading="lazy"></div>
+                        <div class="p-4"><h4>Grains &amp; Pulses</h4><p>Rice, pulses, grains and other agricultural commodities for export markets.</p><span class="enquire-link">Enquire</span></div>
+                    </a>
                 </div>
             </div>
             <div class="text-center mt-5">
@@ -172,9 +140,9 @@
                     <p class="mb-4">Alongside exports, Global Route Company explores international sourcing opportunities for products that have potential in the Indian market — based on demand, quality, supplier reliability and commercial viability.</p>
                     <a href="imports.html" class="btn btn-primary py-3 px-5">Discuss an Import Opportunity</a>
                 </div>
-                <div class="col-lg-6 pe-lg-0 wow fadeInRight" data-wow-delay="0.1s" style="min-height: 400px;">
+                <div class="col-lg-6 pe-lg-0" style="min-height: 360px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute img-fluid w-100 h-100" src="img/import-hero.jpg" style="object-fit: cover;" alt="Import coordination">
+                        <img class="position-absolute img-fluid w-100 h-100" src="img/import-hero.jpg" style="object-fit: cover;" alt="Import coordination" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -183,46 +151,35 @@
 
     <div class="container-xxl py-5">
         <div class="container py-5">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">How We Work</h6>
-                <h1 class="mb-5">A Clear Path from Requirement to Delivery</h1>
+            <div class="text-center mx-auto mb-5" style="max-width: 720px;">
+                <h6 class="text-secondary text-uppercase">How we work</h6>
+                <h2 class="mb-3">From requirement to delivery</h2>
             </div>
-            <div class="row g-4 justify-content-center">
-
-                <div class="col-6 col-md-4 col-lg wow fadeInUp" data-wow-delay="0.1s" style="min-width:160px;">
-                    <div class="process-item">
-                        <div class="process-number">01</div>
-                        <h5>Requirement</h5>
-                        <p class="mb-0">Understand buyer and product requirements.</p>
-                    </div>
+            <div class="process-line">
+                <div class="process-step">
+                    <div class="process-number">01</div>
+                    <h5>Requirement</h5>
+                    <p>Understand buyer and product requirements.</p>
                 </div>
-                <div class="col-6 col-md-4 col-lg wow fadeInUp" data-wow-delay="0.2s" style="min-width:160px;">
-                    <div class="process-item">
-                        <div class="process-number">02</div>
-                        <h5>Source</h5>
-                        <p class="mb-0">Identify suitable products and suppliers.</p>
-                    </div>
+                <div class="process-step">
+                    <div class="process-number">02</div>
+                    <h5>Source</h5>
+                    <p>Identify suitable products and suppliers.</p>
                 </div>
-                <div class="col-6 col-md-4 col-lg wow fadeInUp" data-wow-delay="0.3s" style="min-width:160px;">
-                    <div class="process-item">
-                        <div class="process-number">03</div>
-                        <h5>Verify & Coordinate</h5>
-                        <p class="mb-0">Align product details, quality needs and commercial discussions.</p>
-                    </div>
+                <div class="process-step">
+                    <div class="process-number">03</div>
+                    <h5>Verify</h5>
+                    <p>Align quality needs and commercial discussions.</p>
                 </div>
-                <div class="col-6 col-md-4 col-lg wow fadeInUp" data-wow-delay="0.4s" style="min-width:160px;">
-                    <div class="process-item">
-                        <div class="process-number">04</div>
-                        <h5>Trade</h5>
-                        <p class="mb-0">Discuss commercial terms such as FOB or CIF and coordinate documentation with logistics partners.</p>
-                    </div>
+                <div class="process-step">
+                    <div class="process-number">04</div>
+                    <h5>Trade</h5>
+                    <p>Discuss FOB or CIF and coordinate documentation with partners.</p>
                 </div>
-                <div class="col-6 col-md-4 col-lg wow fadeInUp" data-wow-delay="0.5s" style="min-width:160px;">
-                    <div class="process-item">
-                        <div class="process-number">05</div>
-                        <h5>Deliver</h5>
-                        <p class="mb-0">Support shipment through reliable logistics partners.</p>
-                    </div>
+                <div class="process-step">
+                    <div class="process-number">05</div>
+                    <h5>Deliver</h5>
+                    <p>Support shipment through logistics partners.</p>
                 </div>
             </div>
         </div>
@@ -231,18 +188,18 @@
     <div class="container-fluid cta-band py-5">
         <div class="container py-5">
             <div class="row g-4">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-6">
                     <div class="cta-card text-white">
-                        <h3 class="text-white mb-3">Looking for Reliable Products from India?</h3>
-                        <p class="mb-4">Tell us what you are looking for and our team will explore suitable sourcing opportunities.</p>
+                        <h3 class="text-white mb-3">Looking for products from India?</h3>
+                        <p class="mb-4">Tell us the commodity, quantity and destination. We will explore suitable sourcing options.</p>
                         <a href="quote.html" class="btn btn-primary py-3 px-4 me-2">Request a Quote</a>
                         <a href="contact.html" class="btn btn-outline-light py-3 px-4">Contact Us</a>
                     </div>
                 </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="col-lg-6">
                     <div class="cta-card text-white">
-                        <h3 class="text-white mb-3">Have a Product to Import into India?</h3>
-                        <p class="mb-4">Let's explore the opportunity together.</p>
+                        <h3 class="text-white mb-3">Have a product to import into India?</h3>
+                        <p class="mb-4">Share the opportunity and we will review commercial fit together.</p>
                         <a href="imports.html" class="btn btn-secondary py-3 px-4">Discuss Your Requirement</a>
                     </div>
                 </div>
@@ -250,11 +207,11 @@
         </div>
     </div>
 
-    <div class="container-fluid bg-dark text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s" style="margin-top: 6rem;">
+    <div class="container-fluid bg-dark text-light footer pt-5">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-4 col-md-6">
-                    <div class="footer-brand">Global Route Company</div>
+                    <a href="index.html" class="footer-logo-link"><img src="img/logo-white.svg" alt="Global Route Company" class="footer-logo"></a>
                     <p class="footer-tagline">Connecting India to Global Markets</p>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Plot No. 188, CA Road, Garoba Maidan, Nagpur, Maharashtra (Near Dalvi Hospital) - 440008</p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a class="text-light" href="tel:+919225159719">+91 9225159719</a> <span class="text-white-50">(IST)</span></p>
@@ -284,8 +241,7 @@
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Start a Conversation</h4>
                     <p>Tell us what you are looking for and our team will explore suitable sourcing opportunities.</p>
-                    <a href="contact.html" class="btn btn-primary py-2 px-4 mt-2">Contact Us</a>
-                    <a href="quote.html" class="btn btn-outline-light py-2 px-4 mt-2">Request a Quote</a>
+                    <a href="quote.html" class="btn btn-primary py-2 px-4 mt-2">Request a Quote</a>
                     <a href="https://wa.me/919225159719?text=Hello%20Global%20Route%20Company%2C%20I%20would%20like%20to%20enquire%20about%20sourcing%20from%20India." class="btn btn-whatsapp py-2 px-4 mt-2" target="_blank" rel="noopener">WhatsApp</a>
                 </div>
             </div>
@@ -308,9 +264,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/wow/wow.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

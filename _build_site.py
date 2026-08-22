@@ -2,6 +2,7 @@
 """Generate Global Route Company website pages from the Logistica template."""
 import json
 from pathlib import Path
+from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent
 
@@ -84,10 +85,9 @@ def head(title: str, description: str, page: str, noindex: bool = False) -> str:
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <style>body{{font-family:"Plus Jakarta Sans",sans-serif;}} h1,h2,h3,h4,h5,.display-3{{font-weight:700;}}</style>
+    <style>body{{font-family:"Plus Jakarta Sans",sans-serif;}} h1,h2,h3,h4,h5{{font-weight:700;}}</style>
     <script type="application/ld+json">{ORG_SCHEMA}</script>
 </head>
 
@@ -105,7 +105,16 @@ def nav(active: str) -> str:
         return "nav-item nav-link active" if active == name else "nav-item nav-link"
 
     return f"""
-    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
+    <div class="topbar d-none d-md-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span>Nagpur, India</span>
+            <div class="topbar-links">
+                <a href="mailto:{EMAIL}">{EMAIL}</a>
+                <a href="tel:{PHONE_TEL}">{PHONE} <span>IST</span></a>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
         <a href="index.html" class="navbar-brand navbar-brand-logo px-3 px-lg-4">
             <img src="img/logo.svg" alt="{COMPANY}">
         </a>
@@ -123,7 +132,6 @@ def nav(active: str) -> str:
                 <a href="{WHATSAPP}" class="nav-item nav-link d-lg-none" target="_blank" rel="noopener">WhatsApp</a>
             </div>
             <div class="navbar-actions d-none d-lg-flex align-items-center pe-lg-4">
-                <a href="tel:{PHONE_TEL}" class="navbar-phone me-3"><i class="fa fa-phone-alt text-primary me-2"></i>{PHONE} <span class="navbar-tz">IST</span></a>
                 <a href="quote.html" class="btn btn-primary py-2 px-3 me-2">Request a Quote</a>
                 <a href="{WHATSAPP}" class="btn btn-whatsapp py-2 px-3" target="_blank" rel="noopener"><i class="fab fa-whatsapp me-1"></i>WhatsApp</a>
             </div>
@@ -133,11 +141,11 @@ def nav(active: str) -> str:
 
 
 FOOTER = f"""
-    <div class="container-fluid bg-dark text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s" style="margin-top: 6rem;">
+    <div class="container-fluid bg-dark text-light footer pt-5">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-4 col-md-6">
-                    <div class="footer-brand">{COMPANY}</div>
+                    <a href="index.html" class="footer-logo-link"><img src="img/logo-white.svg" alt="{COMPANY}" class="footer-logo"></a>
                     <p class="footer-tagline">{TAGLINE}</p>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>{ADDRESS}</p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a class="text-light" href="tel:{PHONE_TEL}">{PHONE}</a> <span class="text-white-50">(IST)</span></p>
@@ -167,8 +175,7 @@ FOOTER = f"""
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Start a Conversation</h4>
                     <p>Tell us what you are looking for and our team will explore suitable sourcing opportunities.</p>
-                    <a href="contact.html" class="btn btn-primary py-2 px-4 mt-2">Contact Us</a>
-                    <a href="quote.html" class="btn btn-outline-light py-2 px-4 mt-2">Request a Quote</a>
+                    <a href="quote.html" class="btn btn-primary py-2 px-4 mt-2">Request a Quote</a>
                     <a href="{WHATSAPP}" class="btn btn-whatsapp py-2 px-4 mt-2" target="_blank" rel="noopener">WhatsApp</a>
                 </div>
             </div>
@@ -191,29 +198,44 @@ FOOTER = f"""
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/wow/wow.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
 """
 
 
-def page_header(title: str, crumb: str) -> str:
+def page_header(title: str, crumb: str, image: str | None = None) -> str:
+    if not image:
+        return f"""
+    <div class="container-xxl pt-5">
+        <div class="container page-intro">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-2">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{crumb}</li>
+                </ol>
+            </nav>
+            <h1 class="page-intro-title">{title}</h1>
+        </div>
+    </div>
+"""
     return f"""
-    <div class="container-fluid page-header py-5" style="margin-bottom: 6rem;">
-        <div class="container py-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">{title}</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb">
+    <div class="page-header" style="background-image: linear-gradient(rgba(11, 29, 54, .62), rgba(11, 29, 54, .62)), url({image});">
+        <div class="container">
+            <h1>{title}</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">{crumb}</li>
+                    <li class="breadcrumb-item text-white-50 active" aria-current="page">{crumb}</li>
                 </ol>
             </nav>
         </div>
     </div>
 """
+
+
+def product_href(name: str) -> str:
+    return f"quote.html?product={quote(name)}"
 
 
 ENQUIRY_FORM = """
@@ -305,93 +327,54 @@ def write(name: str, title: str, active: str, body: str, description: str = None
 # ---- Page bodies ----
 
 INDEX = f"""
-    <div class="container-fluid p-0 pb-5">
-        <div class="owl-carousel header-carousel position-relative mb-5">
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="img/carousel-1.jpg" alt="Indian agricultural fields for export">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(11, 29, 54, .58);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">Import &amp; Export | Global Sourcing | Agricultural Trade</h5>
-                                <h1 class="display-3 text-white animated slideInDown mb-4">Connecting India to <span class="text-primary">Global Markets</span></h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">{COMPANY} is an international import and export trading company focused on connecting quality products, trusted suppliers and global buyers.</p>
-                                <a href="products.html" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Explore Our Products</a>
-                                <a href="quote.html" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Request a Quote</a>
-                            </div>
-                        </div>
+    <div class="hero-single">
+        <img src="img/carousel-1.jpg" alt="Indian agricultural fields for export" loading="eager">
+        <div class="hero-overlay">
+            <div class="container">
+                <div class="row justify-content-start">
+                    <div class="col-11 col-lg-7">
+                        <p class="hero-kicker">Import &amp; export · Agricultural trade · India</p>
+                        <h1 class="hero-title">Connecting India to <span>global markets</span></h1>
+                        <p class="hero-lead">{COMPANY} sources agricultural products from India for international buyers and explores selected import opportunities into India.</p>
+                        <a href="quote.html" class="btn btn-primary py-3 px-4 me-3">Request a Quote</a>
+                        <a href="products.html" class="btn btn-outline-light py-3 px-4">View Products</a>
                     </div>
                 </div>
-            </div>
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="img/carousel-2.jpg" alt="International trade and shipping">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(11, 29, 54, .58);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">India → World | World → India</h5>
-                                <h1 class="display-3 text-white animated slideInDown mb-4">Reliable Sourcing for <span class="text-primary">International Trade</span></h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">We source agricultural products from India for international markets and explore reliable products from around the world for the Indian market.</p>
-                                <a href="exports.html" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Export from India</a>
-                                <a href="imports.html" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Import to India</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid tagline-strip py-3">
-        <div class="container">
-            <div class="row g-3">
-                <div class="col-md-3 tagline-item wow fadeInUp" data-wow-delay="0.1s">India <span>→</span> Global Markets</div>
-                <div class="col-md-3 tagline-item wow fadeInUp" data-wow-delay="0.2s">Global Markets <span>→</span> India</div>
-                <div class="col-md-3 tagline-item wow fadeInUp" data-wow-delay="0.3s">Agriculture <span>→</span> International Trade</div>
-                <div class="col-md-3 tagline-item wow fadeInUp" data-wow-delay="0.4s">Sourcing <span>→</span> Partnerships</div>
             </div>
         </div>
     </div>
 
     <div class="container-xxl py-5">
         <div class="container py-5">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Export From India</h6>
-                <h1 class="mb-4">Taking India's Agricultural Products to the World</h1>
-                <p class="mb-5 mx-auto" style="max-width: 760px;">India is home to a diverse agricultural ecosystem producing a wide range of fruits, vegetables, spices, grains and other food products. We aim to connect these products with international markets through reliable sourcing and professional trade coordination.</p>
+            <div class="text-center mx-auto mb-5" style="max-width: 720px;">
+                <h6 class="text-secondary text-uppercase">Export from India</h6>
+                <h2 class="mb-3">Agricultural products for international buyers</h2>
+                <p class="mb-0">We source fruits, vegetables, spices, grains and related food products according to buyer requirements, seasonality and destination needs.</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/fruits.jpg" alt="Fresh fruits"></div>
-                        <h4 class="mb-3">Fresh Fruits</h4>
-                        <p>Papaya, mango, banana, grapes, pomegranate and other seasonal fruits sourced according to buyer requirements.</p>
-                        <a class="btn-slide mt-2" href="exports.html"><i class="fa fa-arrow-right"></i><span>View Exports</span></a>
-                    </div>
+                <div class="col-md-6 col-lg-3">
+                    <a class="product-card" href="{product_href('Fresh Fruits')}">
+                        <div class="product-img"><img src="img/products/fruits.jpg" alt="Fresh fruits" loading="lazy"></div>
+                        <div class="p-4"><h4>Fresh Fruits</h4><p>Papaya, mango, banana, grapes, pomegranate and other seasonal fruits.</p><span class="enquire-link">Enquire</span></div>
+                    </a>
                 </div>
-                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/vegetables.jpg" alt="Fresh vegetables"></div>
-                        <h4 class="mb-3">Fresh Vegetables</h4>
-                        <p>Onion, potato and other vegetables based on market conditions and buyer specifications.</p>
-                        <a class="btn-slide mt-2" href="exports.html"><i class="fa fa-arrow-right"></i><span>View Exports</span></a>
-                    </div>
+                <div class="col-md-6 col-lg-3">
+                    <a class="product-card" href="{product_href('Fresh Vegetables')}">
+                        <div class="product-img"><img src="img/products/vegetables.jpg" alt="Fresh vegetables" loading="lazy"></div>
+                        <div class="p-4"><h4>Fresh Vegetables</h4><p>Onion, potato and other vegetables based on buyer specifications.</p><span class="enquire-link">Enquire</span></div>
+                    </a>
                 </div>
-                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/chilli.jpg" alt="Chilli and spices"></div>
-                        <h4 class="mb-3">Chilli &amp; Spices</h4>
-                        <p>Indian chilli, red chilli and selected spices for international food and commodity buyers.</p>
-                        <a class="btn-slide mt-2" href="exports.html"><i class="fa fa-arrow-right"></i><span>View Exports</span></a>
-                    </div>
+                <div class="col-md-6 col-lg-3">
+                    <a class="product-card" href="{product_href('Chilli & Spices')}">
+                        <div class="product-img"><img src="img/products/chilli.jpg" alt="Chilli and spices" loading="lazy"></div>
+                        <div class="p-4"><h4>Chilli &amp; Spices</h4><p>Indian chilli, red chilli and selected spices for food and commodity buyers.</p><span class="enquire-link">Enquire</span></div>
+                    </a>
                 </div>
-                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/rice.jpg" alt="Rice and grains"></div>
-                        <h4 class="mb-3">Grains &amp; Pulses</h4>
-                        <p>Rice, pulses, grains and other agricultural commodities sourced for export markets.</p>
-                        <a class="btn-slide mt-2" href="exports.html"><i class="fa fa-arrow-right"></i><span>View Exports</span></a>
-                    </div>
+                <div class="col-md-6 col-lg-3">
+                    <a class="product-card" href="{product_href('Grains & Pulses')}">
+                        <div class="product-img"><img src="img/products/rice.jpg" alt="Rice and grains" loading="lazy"></div>
+                        <div class="p-4"><h4>Grains &amp; Pulses</h4><p>Rice, pulses, grains and other agricultural commodities for export markets.</p><span class="enquire-link">Enquire</span></div>
+                    </a>
                 </div>
             </div>
             <div class="text-center mt-5">
@@ -409,43 +392,47 @@ INDEX = f"""
                     <p class="mb-4">Alongside exports, {COMPANY} explores international sourcing opportunities for products that have potential in the Indian market — based on demand, quality, supplier reliability and commercial viability.</p>
                     <a href="imports.html" class="btn btn-primary py-3 px-5">Discuss an Import Opportunity</a>
                 </div>
-                <div class="col-lg-6 pe-lg-0 wow fadeInRight" data-wow-delay="0.1s" style="min-height: 400px;">
+                <div class="col-lg-6 pe-lg-0" style="min-height: 360px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute img-fluid w-100 h-100" src="img/import-hero.jpg" style="object-fit: cover;" alt="Import coordination">
+                        <img class="position-absolute img-fluid w-100 h-100" src="img/import-hero.jpg" style="object-fit: cover;" alt="Import coordination" loading="lazy">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-"""
 
-for i, (num, title, desc) in enumerate([
-    ("01", "Requirement", "Understand buyer and product requirements."),
-    ("02", "Source", "Identify suitable products and suppliers."),
-    ("03", "Verify & Coordinate", "Align product details, quality needs and commercial discussions."),
-    ("04", "Trade", "Discuss commercial terms such as FOB or CIF and coordinate documentation with logistics partners."),
-    ("05", "Deliver", "Support shipment through reliable logistics partners."),
-]):
-    if i == 0:
-        INDEX += """
     <div class="container-xxl py-5">
         <div class="container py-5">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">How We Work</h6>
-                <h1 class="mb-5">A Clear Path from Requirement to Delivery</h1>
+            <div class="text-center mx-auto mb-5" style="max-width: 720px;">
+                <h6 class="text-secondary text-uppercase">How we work</h6>
+                <h2 class="mb-3">From requirement to delivery</h2>
             </div>
-            <div class="row g-4 justify-content-center">
-"""
-    INDEX += f"""
-                <div class="col-6 col-md-4 col-lg wow fadeInUp" data-wow-delay="0.{i+1}s" style="min-width:160px;">
-                    <div class="process-item">
-                        <div class="process-number">{num}</div>
-                        <h5>{title}</h5>
-                        <p class="mb-0">{desc}</p>
-                    </div>
-                </div>"""
-
-INDEX += """
+            <div class="process-line">
+                <div class="process-step">
+                    <div class="process-number">01</div>
+                    <h5>Requirement</h5>
+                    <p>Understand buyer and product requirements.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">02</div>
+                    <h5>Source</h5>
+                    <p>Identify suitable products and suppliers.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">03</div>
+                    <h5>Verify</h5>
+                    <p>Align quality needs and commercial discussions.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">04</div>
+                    <h5>Trade</h5>
+                    <p>Discuss FOB or CIF and coordinate documentation with partners.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">05</div>
+                    <h5>Deliver</h5>
+                    <p>Support shipment through logistics partners.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -453,18 +440,18 @@ INDEX += """
     <div class="container-fluid cta-band py-5">
         <div class="container py-5">
             <div class="row g-4">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-6">
                     <div class="cta-card text-white">
-                        <h3 class="text-white mb-3">Looking for Reliable Products from India?</h3>
-                        <p class="mb-4">Tell us what you are looking for and our team will explore suitable sourcing opportunities.</p>
+                        <h3 class="text-white mb-3">Looking for products from India?</h3>
+                        <p class="mb-4">Tell us the commodity, quantity and destination. We will explore suitable sourcing options.</p>
                         <a href="quote.html" class="btn btn-primary py-3 px-4 me-2">Request a Quote</a>
                         <a href="contact.html" class="btn btn-outline-light py-3 px-4">Contact Us</a>
                     </div>
                 </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="col-lg-6">
                     <div class="cta-card text-white">
-                        <h3 class="text-white mb-3">Have a Product to Import into India?</h3>
-                        <p class="mb-4">Let's explore the opportunity together.</p>
+                        <h3 class="text-white mb-3">Have a product to import into India?</h3>
+                        <p class="mb-4">Share the opportunity and we will review commercial fit together.</p>
                         <a href="imports.html" class="btn btn-secondary py-3 px-4">Discuss Your Requirement</a>
                     </div>
                 </div>
@@ -488,156 +475,137 @@ ABOUT = page_header("About Us", "About Us") + f"""
     <div class="container-fluid overflow-hidden py-5 px-lg-0">
         <div class="container about py-5 px-lg-0">
             <div class="row g-5 mx-lg-0">
-                <div class="col-lg-6 ps-lg-0 wow fadeInLeft" data-wow-delay="0.1s" style="min-height: 400px;">
+                <div class="col-lg-6 ps-lg-0" style="min-height: 400px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute img-fluid w-100 h-100" src="img/about.jpg" style="object-fit: cover;" alt="About {COMPANY}">
+                        <img class="position-absolute img-fluid w-100 h-100" src="img/about.jpg" style="object-fit: cover;" alt="About {COMPANY}" loading="lazy">
                     </div>
                 </div>
-                <div class="col-lg-6 about-text wow fadeInUp" data-wow-delay="0.3s">
-                    <h6 class="text-secondary text-uppercase mb-3">Who We Are</h6>
-                    <h1 class="mb-4">About {COMPANY}</h1>
-                    <p class="mb-4">{COMPANY} is an India-based international trading company focused on creating reliable connections between Indian producers, global buyers and international suppliers.</p>
-                    <p class="mb-4">Our business is built around responsible sourcing, quality products, transparent communication and long-term business relationships.</p>
-                    <p class="mb-4">We aim to support international buyers with carefully sourced agricultural products from India while exploring opportunities to bring selected quality products from global markets to India.</p>
-                    <p class="mb-4 fw-medium fs-5">Source responsibly. Trade transparently. Deliver reliably.</p>
-                    <p class="mb-4">Learn more about <a href="exports.html">exports from India</a>, <a href="imports.html">imports to India</a>, and our <a href="markets.html">target markets</a>.</p>
+                <div class="col-lg-6 about-text">
+                    <h6 class="text-secondary text-uppercase mb-3">Who we are</h6>
+                    <h2 class="mb-4">{COMPANY}</h2>
+                    <p class="mb-4">{COMPANY} is an India-based trading company connecting Indian producers, global buyers and international suppliers. We focus on agricultural and food products, with responsible sourcing and clear communication.</p>
+                    <p class="mb-4 fw-medium">Source responsibly. Trade transparently. Deliver reliably.</p>
+                    <p class="mb-4">See <a href="exports.html">exports from India</a>, <a href="imports.html">imports to India</a>, and <a href="markets.html">target markets</a>.</p>
                     <a href="contact.html" class="btn btn-primary py-3 px-5">Get in Touch</a>
                 </div>
             </div>
         </div>
     </div>
     <div class="container-xxl py-5 bg-light">
-        <div class="container py-5">
+        <div class="container">
             <div class="row g-4">
-                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s"><div class="why-item h-100"><h5 class="mb-3">Our Focus</h5><p class="mb-0">Import &amp; export trading with a primary emphasis on agricultural and food products, supported by professional trade coordination.</p></div></div>
-                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.2s"><div class="why-item h-100"><h5 class="mb-3">Our Approach</h5><p class="mb-0">Understand requirements, identify suitable products and suppliers, coordinate quality and commercial discussions, and support delivery through trusted partners.</p></div></div>
-                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.3s"><div class="why-item h-100"><h5 class="mb-3">Our Commitment</h5><p class="mb-0">Clear communication, realistic expectations and a partnership mindset — without exaggerated claims or unsupported guarantees.</p></div></div>
+                <div class="col-md-4"><div class="why-item h-100"><h5 class="mb-3">Focus</h5><p class="mb-0">Import and export trading in agricultural and food products, with professional trade coordination.</p></div></div>
+                <div class="col-md-4"><div class="why-item h-100"><h5 class="mb-3">Approach</h5><p class="mb-0">Understand the requirement, identify suitable products and suppliers, then support delivery through trusted partners.</p></div></div>
+                <div class="col-md-4"><div class="why-item h-100"><h5 class="mb-3">Commitment</h5><p class="mb-0">Clear communication and realistic expectations — without exaggerated claims.</p></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl py-5">
+        <div class="container text-center">
+            <h3 class="mb-3">Ready to discuss a requirement?</h3>
+            <p class="mb-4">Share the product, quantity and destination and our team will respond.</p>
+            <a href="quote.html" class="btn btn-primary py-3 px-5">Request a Quote</a>
+        </div>
+    </div>
+"""
+
+EXPORTS = page_header("Exports", "Exports", "img/export-hero.jpg") + f"""
+    <div class="container-xxl py-5">
+        <div class="container py-5">
+            <div class="mx-auto mb-5" style="max-width: 760px;">
+                <h6 class="text-secondary text-uppercase mb-3">Export from India</h6>
+                <h2 class="mb-3">Agricultural products for overseas buyers</h2>
+                <p class="mb-0">{COMPANY} connects Indian fruits, vegetables, spices, grains and related food products with international markets. Availability depends on seasonality, quality, quantity and destination.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4"><a class="product-card" href="{product_href('Fresh Fruits')}"><div class="product-img"><img src="img/products/fruits.jpg" alt="Fresh Fruits" loading="lazy"></div><div class="p-4"><h4>Fresh Fruits</h4><p>Papaya, mango, banana, grapes, pomegranate and other seasonal fruits.</p><span class="enquire-link">Enquire</span></div></a></div>
+                <div class="col-md-6 col-lg-4"><a class="product-card" href="{product_href('Fresh Vegetables')}"><div class="product-img"><img src="img/products/vegetables.jpg" alt="Fresh Vegetables" loading="lazy"></div><div class="p-4"><h4>Fresh Vegetables</h4><p>Onion, potato and other vegetables based on buyer requirements.</p><span class="enquire-link">Enquire</span></div></a></div>
+                <div class="col-md-6 col-lg-4"><a class="product-card" href="{product_href('Chilli & Spices')}"><div class="product-img"><img src="img/products/chilli.jpg" alt="Chilli and Spices" loading="lazy"></div><div class="p-4"><h4>Chilli &amp; Spices</h4><p>Indian chilli, red chilli and selected spices for global buyers.</p><span class="enquire-link">Enquire</span></div></a></div>
+                <div class="col-md-6 col-lg-4"><a class="product-card" href="{product_href('Grains & Pulses')}"><div class="product-img"><img src="img/products/rice.jpg" alt="Grains and Pulses" loading="lazy"></div><div class="p-4"><h4>Grains &amp; Pulses</h4><p>Rice, pulses, grains and other agricultural commodities.</p><span class="enquire-link">Enquire</span></div></a></div>
+                <div class="col-md-6 col-lg-4"><a class="product-card" href="{product_href('Custom Sourcing')}"><div class="product-img"><img src="img/products/custom.jpg" alt="Custom Sourcing" loading="lazy"></div><div class="p-4"><h4>Custom Sourcing</h4><p>Products sourced according to specific buyer requirements.</p><span class="enquire-link">Enquire</span></div></a></div>
+                <div class="col-md-6 col-lg-4"><div class="cta-tile"><h4 class="text-white mb-3">Share your requirement</h4><p class="text-white">Tell us the product, quantity, quality preference and destination.</p><a href="quote.html" class="btn btn-secondary py-2 px-4">Request a Quote</a></div></div>
             </div>
         </div>
     </div>
 """
 
-EXPORTS = page_header("Exports", "Exports") + f"""
+IMPORTS = page_header("Imports", "Imports", "img/import-hero.jpg") + f"""
     <div class="container-xxl py-5">
         <div class="container py-5">
-            <div class="row g-5 align-items-center mb-5">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="text-secondary text-uppercase mb-3">Export From India</h6>
-                    <h1 class="mb-4">Taking India's Agricultural Products to the World</h1>
-                    <p class="mb-4">India is home to a diverse agricultural ecosystem producing a wide range of fruits, vegetables, spices, grains and other food products. {COMPANY} aims to connect these products with international markets through reliable sourcing and professional trade coordination.</p>
-                    <p class="mb-0">We source and supply a wide range of agricultural and food products based on buyer requirements and market demand. Availability depends on seasonality, quality standards, quantity and destination requirements.</p>
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <img class="img-fluid w-100" src="img/export-hero.jpg" alt="Export from India" style="object-fit:cover; max-height:420px;">
-                </div>
+            <div class="mx-auto mb-5" style="max-width: 760px;">
+                <h6 class="text-secondary text-uppercase mb-3">Import to India</h6>
+                <h2 class="mb-3">Selected opportunities for the Indian market</h2>
+                <p class="mb-0">Alongside exports, {COMPANY} reviews international products that may fit Indian demand — based on quality, supplier reliability and commercial viability.</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s"><div class="service-item p-4"><div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/fruits.jpg" alt="Fresh Fruits"></div><h4 class="mb-3">Fresh Fruits</h4><p>Papaya, mango, banana, grapes, pomegranate and other seasonal fruits.</p></div></div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s"><div class="service-item p-4"><div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/vegetables.jpg" alt="Fresh Vegetables"></div><h4 class="mb-3">Fresh Vegetables</h4><p>Onion, potato and other vegetables based on market and buyer requirements.</p></div></div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s"><div class="service-item p-4"><div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/chilli.jpg" alt="Chilli and Spices"></div><h4 class="mb-3">Chilli &amp; Spices</h4><p>Indian chilli, red chilli and selected spices for global buyers.</p></div></div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.4s"><div class="service-item p-4"><div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/rice.jpg" alt="Grains and Pulses"></div><h4 class="mb-3">Grains &amp; Pulses</h4><p>Rice, pulses, grains and other agricultural commodities.</p></div></div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s"><div class="service-item p-4"><div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/custom.jpg" alt="Custom Sourcing"></div><h4 class="mb-3">Custom Sourcing</h4><p>Products sourced according to specific buyer requirements.</p></div></div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.6s"><div class="service-item p-4 bg-primary text-white"><h4 class="mb-3 text-white">Share Your Requirement</h4><p class="text-white">Tell us the product, quantity, quality preference and destination — we will explore suitable sourcing options.</p><a href="quote.html" class="btn btn-secondary py-2 px-4">Request a Quote</a></div></div>
-            </div>
-        </div>
-    </div>
-"""
-
-IMPORTS = page_header("Imports", "Imports") + f"""
-    <div class="container-xxl py-5">
-        <div class="container py-5">
-            <div class="row g-5 align-items-center mb-5">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="text-secondary text-uppercase mb-3">Import to India</h6>
-                    <h1 class="mb-4">Bringing Global Opportunities to India</h1>
-                    <p class="mb-4">Alongside exports, {COMPANY} explores international sourcing opportunities for products that have potential in the Indian market.</p>
-                    <p class="mb-4">We are continuously exploring international sourcing opportunities to bring quality products to the Indian market.</p>
-                    <a href="contact.html" class="btn btn-primary py-3 px-5">Discuss an Import Opportunity</a>
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <img class="img-fluid w-100" src="img/import-hero.jpg" alt="Import to India" style="object-fit:cover; max-height:420px;">
-                </div>
-            </div>
-            <div class="row g-4">
-"""
-for i, (icon, title, desc) in enumerate([
-    ("fa-globe", "International Supplier Sourcing", "Identifying and engaging with potential overseas suppliers."),
-    ("fa-lightbulb", "Product Identification", "Evaluating products with relevance to Indian market demand."),
-    ("fa-comments", "Supplier Communication", "Clear discussions on specifications, commercial terms and feasibility."),
-    ("fa-calculator", "Commercial Evaluation", "Assessing viability before progressing trade discussions."),
-    ("fa-clipboard-list", "Import Coordination", "Supporting coordination across documentation and related trade steps."),
-    ("fa-store", "Market-Oriented Sourcing", "Focusing on products with practical potential in India."),
-]):
-    IMPORTS += f"""
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.{i+1}s">
-                    <div class="why-item"><i class="fa {icon} fa-2x text-primary mb-3"></i><h5 class="mb-3">{title}</h5><p class="mb-0">{desc}</p></div>
-                </div>"""
-IMPORTS += """
+                <div class="col-md-4"><div class="why-item h-100"><i class="fa fa-globe fa-lg text-primary mb-3"></i><h5 class="mb-3">Supplier sourcing</h5><p class="mb-0">Identifying and engaging with potential overseas suppliers.</p></div></div>
+                <div class="col-md-4"><div class="why-item h-100"><i class="fa fa-calculator fa-lg text-primary mb-3"></i><h5 class="mb-3">Commercial evaluation</h5><p class="mb-0">Assessing viability before progressing trade discussions.</p></div></div>
+                <div class="col-md-4"><div class="why-item h-100"><i class="fa fa-clipboard-list fa-lg text-primary mb-3"></i><h5 class="mb-3">Import coordination</h5><p class="mb-0">Supporting documentation and related trade steps with partners.</p></div></div>
             </div>
             <div class="text-center mt-5">
-                <h4 class="mb-3">Have a Product to Import into India?</h4>
-                <p class="mb-4">Let's explore the opportunity together.</p>
+                <h4 class="mb-3">Have a product to import into India?</h4>
+                <p class="mb-4">Share the details and we will review the opportunity together.</p>
                 <a href="quote.html" class="btn btn-primary py-3 px-5">Discuss Your Requirement</a>
             </div>
         </div>
     </div>
 """
 
-PRODUCTS = page_header("Products", "Products") + """
+PRODUCTS = page_header("Products", "Products", "img/products/fruits.jpg") + """
     <div class="container-xxl py-5">
         <div class="container py-5">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width:720px;">
-                <h6 class="text-secondary text-uppercase">Our Product Categories</h6>
-                <h1 class="mb-3">Agricultural &amp; Food Product Categories</h1>
-                <p>We source and supply a wide range of agricultural and food products based on buyer requirements and market demand.</p>
+            <div class="mx-auto mb-5" style="max-width:720px;">
+                <h6 class="text-secondary text-uppercase">Product categories</h6>
+                <h2 class="mb-3">Agricultural and food products</h2>
+                <p class="mb-0">We source according to buyer requirements and market demand. Specifications are confirmed on enquiry.</p>
             </div>
             <div class="row g-4">
 """
-for i, (img, title, desc) in enumerate(PRODUCT_CARDS):
+for img, title, desc in PRODUCT_CARDS:
     PRODUCTS += f"""
-                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.{i+1}s">
-                    <div class="product-item">
-                        <div class="product-img"><img src="img/products/{img}" alt="{title}"></div>
-                        <div class="p-4"><h5 class="mb-2">{title}</h5><p class="mb-0">{desc}</p></div>
-                    </div>
+                <div class="col-md-6 col-lg-3">
+                    <a class="product-card" href="{product_href(title)}">
+                        <div class="product-img"><img src="img/products/{img}" alt="{title}" loading="lazy"></div>
+                        <div class="p-4"><h5 class="mb-2">{title}</h5><p>{desc}</p><span class="enquire-link">Enquire</span></div>
+                    </a>
                 </div>"""
 PRODUCTS += """
             </div>
-            <div class="bg-light p-5 mt-5 text-center wow fadeInUp" data-wow-delay="0.2s">
-                <h3 class="mb-3">Need a Specific Commodity?</h3>
-                <p class="mb-4">Share your product requirement and we will explore suitable sourcing options.</p>
+            <div class="enquiry-band mt-5 text-center">
+                <h3 class="mb-3">Need a specific commodity?</h3>
+                <p class="mb-4">Share the product, quantity and destination and we will explore sourcing options.</p>
                 <a href="quote.html" class="btn btn-primary py-3 px-5">Request a Quote</a>
             </div>
         </div>
     </div>
 """
 
-SERVICES = page_header("Services", "Services") + f"""
+SERVICES = page_header("Services", "Services", "img/carousel-2.jpg") + f"""
     <div class="container-xxl py-5">
         <div class="container py-5">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width:760px;">
-                <h6 class="text-secondary text-uppercase">Our Services</h6>
-                <h1 class="mb-3">International Trading Services</h1>
-                <p>{COMPANY} supports international trade through sourcing, coordination and partnership-focused engagement. Where specialised activities such as freight or certification are required, we coordinate with appropriate external partners.</p>
-                <p>Commercial terms such as FOB or CIF can be discussed on enquiry. We coordinate documentation with logistics partners rather than operating freight ourselves.</p>
+            <div class="mx-auto mb-5" style="max-width:760px;">
+                <h6 class="text-secondary text-uppercase">Services</h6>
+                <h2 class="mb-3">International trading support</h2>
+                <p>{COMPANY} supports trade through sourcing and coordination. Freight and certification are handled with external partners when required.</p>
+                <p class="mb-0">Commercial terms such as FOB or CIF can be discussed on enquiry. We coordinate documentation with logistics partners rather than operating freight ourselves.</p>
             </div>
             <div class="row g-4">
 """
-for i, (img, title, desc) in enumerate([
-    ("service-1.jpg", "Global Sourcing", "Identifying suitable products and reliable suppliers according to buyer requirements."),
-    ("service-2.jpg", "Import & Export", "Supporting international trade opportunities between India and global markets."),
-    ("service-3.jpg", "Agricultural Product Sourcing", "Connecting buyers with suitable agricultural products from Indian markets."),
-    ("service-4.jpg", "Supplier Coordination", "Working with suppliers and producers to support product availability and commercial requirements."),
-    ("service-5.jpg", "Quality & Documentation Coordination", "Supporting product information, documentation and trade-related coordination."),
-    ("service-6.jpg", "Logistics Coordination", "Coordinating with appropriate logistics partners for transportation and shipment requirements."),
-]):
+for icon, title, desc in [
+    ("fa-search-location", "Global sourcing", "Identifying suitable products and reliable suppliers according to buyer requirements."),
+    ("fa-exchange-alt", "Import and export", "Supporting trade discussions between India and overseas markets."),
+    ("fa-seedling", "Agricultural sourcing", "Connecting buyers with suitable agricultural products from Indian markets."),
+    ("fa-people-carry", "Supplier coordination", "Working with suppliers and producers on availability and commercial requirements."),
+    ("fa-file-alt", "Documentation coordination", "Supporting product information and trade-related paperwork."),
+    ("fa-shipping-fast", "Logistics coordination", "Coordinating transportation and shipment with logistics partners."),
+]:
     SERVICES += f"""
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.{i+1}s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4"><img class="img-fluid" src="img/{img}" alt="{title}"></div>
-                        <h4 class="mb-3">{title}</h4>
-                        <p>{desc}</p>
-                        <a class="btn-slide mt-2" href="contact.html"><i class="fa fa-arrow-right"></i><span>Enquire</span></a>
+                <div class="col-md-6 col-lg-4">
+                    <div class="why-item h-100">
+                        <i class="fa {icon} fa-lg text-primary mb-3"></i>
+                        <h5 class="mb-3">{title}</h5>
+                        <p class="mb-3">{desc}</p>
+                        <a class="enquire-link" href="contact.html">Enquire</a>
                     </div>
                 </div>"""
 SERVICES += """
@@ -646,60 +614,48 @@ SERVICES += """
     </div>
 """
 
-MARKETS = page_header("Markets", "Markets") + f"""
+MARKETS = page_header("Markets", "Markets", "img/markets.jpg") + f"""
     <div class="container-xxl py-5">
         <div class="container py-5">
-            <div class="row g-5 align-items-center mb-5">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="text-secondary text-uppercase mb-3">Global Markets</h6>
-                    <h1 class="mb-4">From India to Global Markets</h1>
-                    <p class="mb-4">{COMPANY} works with an international outlook — connecting Indian agricultural products with overseas buyers and exploring selected import opportunities into India.</p>
-                    <p class="mb-0">Our target markets include the Middle East, Africa, Southeast Asia, Europe and other international markets where product fit, demand and commercial viability align.</p>
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <img class="img-fluid w-100" src="img/markets.jpg" alt="Global markets" style="object-fit:cover; max-height:420px;">
-                </div>
-            </div>
-            <div class="row g-4">
-"""
-for i, (region, desc) in enumerate([
-    ("Middle East", "A priority target region for agricultural and food trade discussions."),
-    ("Africa", "Exploring opportunities aligned with demand for Indian agricultural products."),
-    ("Southeast Asia", "Engaging markets with strong food and commodity trade potential."),
-    ("Europe", "Developing conversations around quality-focused agricultural sourcing."),
-]):
-    MARKETS += f"""
-                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.{i+1}s">
-                    <div class="market-item h-100">
-                        <i class="fa fa-map-marker-alt fa-2x text-primary mb-3"></i>
-                        <h5>{region}</h5>
-                        <p class="mb-0">{desc}</p>
+            <div class="row g-5">
+                <div class="col-lg-7">
+                    <h6 class="text-secondary text-uppercase mb-3">Target markets</h6>
+                    <h2 class="mb-4">Regions we are building conversations in</h2>
+                    <p class="mb-4">{COMPANY} connects Indian agricultural products with overseas buyers and explores selected import opportunities into India. These are target markets — not a claim of current shipment volume.</p>
+                    <div class="market-list">
+                        <div class="market-row"><h5>Middle East</h5><p>A priority region for agricultural and food trade discussions.</p></div>
+                        <div class="market-row"><h5>Africa</h5><p>Opportunities aligned with demand for Indian agricultural products.</p></div>
+                        <div class="market-row"><h5>Southeast Asia</h5><p>Markets with food and commodity trade potential.</p></div>
+                        <div class="market-row"><h5>Europe</h5><p>Conversations around quality-focused agricultural sourcing.</p></div>
                     </div>
-                </div>"""
-MARKETS += """
-            </div>
-            <div class="bg-light p-5 mt-5 wow fadeInUp" data-wow-delay="0.2s">
-                <h4 class="mb-3">Other International Markets</h4>
-                <p class="mb-0">We remain open to opportunities in additional regions based on product suitability, buyer interest and commercial alignment.</p>
+                    <p class="mt-4 mb-0">We also review other regions when product fit, buyer interest and commercial terms align.</p>
+                </div>
+                <div class="col-lg-5">
+                    <div class="enquiry-panel h-100">
+                        <h4 class="mb-3">Discuss a destination</h4>
+                        <p class="mb-4">Share the product and market you have in mind. We will review suitability together.</p>
+                        <a href="quote.html" class="btn btn-primary py-3 px-4">Request a Quote</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 """
 
-CONTACT = page_header("Contact", "Contact") + f"""
-    <div class="container-fluid overflow-hidden py-5 px-lg-0">
-        <div class="container contact-page py-5 px-lg-0">
-            <div class="row g-5 mx-lg-0">
-                <div class="col-lg-6 contact-form wow fadeIn" data-wow-delay="0.1s">
-                    <h6 class="text-secondary text-uppercase">Business Enquiry</h6>
-                    <h1 class="mb-4">Tell Us What You Need</h1>
-                    <p class="mb-4">Whether you are looking to source products from India, discuss an import opportunity, or explore a supplier partnership — share your details and we will respond. You can also reach us on WhatsApp.</p>
-                    <div class="bg-light p-4">
+CONTACT = page_header("Contact", "Contact", "img/cta-bg.jpg") + f"""
+    <div class="container-xxl py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <h6 class="text-secondary text-uppercase">Business enquiry</h6>
+                    <h2 class="mb-4">Tell us what you need</h2>
+                    <p class="mb-4">Share your details for an export, import or supplier discussion. You can also reach us on WhatsApp.</p>
+                    <div class="enquiry-panel">
 {ENQUIRY_FORM}
                     </div>
                 </div>
-                <div class="col-lg-6 pe-lg-0 wow fadeInRight" data-wow-delay="0.1s">
-                    <div class="bg-primary h-100 p-5 text-white">
+                <div class="col-lg-6">
+                    <div class="contact-aside text-white h-100">
                         <h4 class="text-white mb-4">Contact Information</h4>
                         <p class="mb-3"><i class="fa fa-building me-3"></i><strong>{COMPANY}</strong></p>
                         <p class="mb-4"><i class="fa fa-map-marker-alt me-3"></i>{ADDRESS}</p>
@@ -718,30 +674,30 @@ CONTACT = page_header("Contact", "Contact") + f"""
     </div>
 """
 
-QUOTE = page_header("Request a Quote", "Request a Quote") + f"""
+QUOTE = page_header("Request a Quote", "Request a Quote", "img/carousel-2.jpg") + f"""
     <div class="container-xxl py-5">
         <div class="container py-5">
             <div class="row g-5 align-items-start">
-                <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="text-secondary text-uppercase mb-3">Get a Quote</h6>
-                    <h1 class="mb-4">Share Your Trade Requirement</h1>
-                    <p class="mb-4">Provide product, quantity and destination or origin details. Our team will review your enquiry and explore suitable sourcing opportunities.</p>
+                <div class="col-lg-5">
+                    <h6 class="text-secondary text-uppercase mb-3">Get a quote</h6>
+                    <h2 class="mb-4">Share your trade requirement</h2>
+                    <p class="mb-4">Provide product, quantity and destination or origin details. We will review the enquiry and explore suitable sourcing options.</p>
                     <p class="mb-4">Commercial terms such as FOB or CIF can be discussed once we understand the product, quantity and destination. Freight and documentation are coordinated with logistics partners.</p>
-                    <div class="d-flex align-items-center mb-4">
-                        <i class="fa fa-phone-alt fa-2x flex-shrink-0 bg-primary p-3 text-white"></i>
-                        <div class="ps-4"><h6>Call us</h6><h3 class="text-primary m-0"><a href="tel:{PHONE_TEL}">{PHONE}</a></h3></div>
+                    <div class="contact-mini">
+                        <i class="fa fa-phone-alt"></i>
+                        <div><span>Call</span><a href="tel:{PHONE_TEL}">{PHONE}</a></div>
                     </div>
-                    <div class="d-flex align-items-center mb-4">
-                        <i class="fab fa-whatsapp fa-2x flex-shrink-0 bg-primary p-3 text-white"></i>
-                        <div class="ps-4"><h6>WhatsApp</h6><h5 class="text-primary m-0"><a href="{WHATSAPP}" target="_blank" rel="noopener">Message us</a></h5></div>
+                    <div class="contact-mini">
+                        <i class="fab fa-whatsapp"></i>
+                        <div><span>WhatsApp</span><a href="{WHATSAPP}" target="_blank" rel="noopener">Message us</a></div>
                     </div>
-                    <div class="d-flex align-items-center">
-                        <i class="fa fa-envelope fa-2x flex-shrink-0 bg-primary p-3 text-white"></i>
-                        <div class="ps-4"><h6>Email us</h6><h5 class="text-primary m-0"><a href="mailto:{EMAIL}">{EMAIL}</a></h5></div>
+                    <div class="contact-mini">
+                        <i class="fa fa-envelope"></i>
+                        <div><span>Email</span><a href="mailto:{EMAIL}">{EMAIL}</a></div>
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <div class="bg-light p-5 wow fadeIn" data-wow-delay="0.3s">
+                    <div class="enquiry-panel">
 {ENQUIRY_FORM}
                     </div>
                 </div>
@@ -751,10 +707,9 @@ QUOTE = page_header("Request a Quote", "Request a Quote") + f"""
 """
 
 PRIVACY = page_header("Privacy Policy", "Privacy Policy") + f"""
-    <div class="container-xxl py-5">
-        <div class="container py-5" style="max-width: 820px;">
-            <h6 class="text-secondary text-uppercase mb-3">Privacy Policy</h6>
-            <h1 class="mb-4">How we handle enquiries</h1>
+    <div class="container-xxl pb-5">
+        <div class="container pb-5" style="max-width: 820px;">
+            <h2 class="mb-4">How we handle enquiries</h2>
             <p class="mb-4">This page explains how {COMPANY} uses information you send through this website. We do not sell personal information.</p>
             <h4 class="mb-3">What we collect</h4>
             <p class="mb-4">When you submit the business enquiry form, we receive the details you enter — typically name, company, email, phone, country, enquiry type, product, quantity, destination or origin, and your message. If you contact us by phone, WhatsApp or email, we also receive the information you choose to share in that conversation.</p>
@@ -769,12 +724,12 @@ PRIVACY = page_header("Privacy Policy", "Privacy Policy") + f"""
 """
 
 THANK_YOU = page_header("Thank You", "Thank You") + f"""
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container text-center">
+    <div class="container-xxl pb-5">
+        <div class="container text-center py-4">
             <div class="row justify-content-center">
                 <div class="col-lg-7">
-                    <i class="fa fa-check-circle display-1 text-primary mb-4"></i>
-                    <h1 class="mb-4">Thank you for your enquiry</h1>
+                    <i class="fa fa-check-circle text-primary mb-4" style="font-size: 3.5rem;"></i>
+                    <h2 class="mb-4">Thank you for your enquiry</h2>
                     <p class="mb-4">We have received your message. Our team will review your requirement and get back to you.</p>
                     <a class="btn btn-primary py-3 px-5 me-2 mb-2" href="index.html">Back to Home</a>
                     <a class="btn btn-whatsapp py-3 px-5 mb-2" href="{WHATSAPP}" target="_blank" rel="noopener"><i class="fab fa-whatsapp me-2"></i>WhatsApp</a>
@@ -785,13 +740,12 @@ THANK_YOU = page_header("Thank You", "Thank You") + f"""
 """
 
 NOT_FOUND = page_header("Page Not Found", "404") + f"""
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container text-center">
+    <div class="container-xxl pb-5">
+        <div class="container text-center py-4">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
-                    <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
-                    <h1 class="display-1">404</h1>
-                    <h1 class="mb-4">Page Not Found</h1>
+                    <p class="text-primary fw-bold mb-2">404</p>
+                    <h2 class="mb-4">Page not found</h2>
                     <p class="mb-4">The page you are looking for may have been moved. Return to the homepage to continue exploring {COMPANY}.</p>
                     <a class="btn btn-primary py-3 px-5" href="index.html">Go Back To Home</a>
                 </div>

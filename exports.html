@@ -29,10 +29,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <style>body{font-family:"Plus Jakarta Sans",sans-serif;} h1,h2,h3,h4,h5,.display-3{font-weight:700;}</style>
+    <style>body{font-family:"Plus Jakarta Sans",sans-serif;} h1,h2,h3,h4,h5{font-weight:700;}</style>
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Global Route Company", "url": "https://groute.co.in/", "logo": "https://groute.co.in/img/logo.svg", "email": "lokeshghagare@gmail.com", "telephone": "+91 9225159719", "description": "Global Route Company is an India-based import and export trading company connecting agricultural products, suppliers and global buyers through reliable sourcing and international trade solutions.", "address": {"@type": "PostalAddress", "streetAddress": "Plot No. 188, CA Road, Garoba Maidan", "addressLocality": "Nagpur", "addressRegion": "Maharashtra", "postalCode": "440008", "addressCountry": "IN"}}</script>
 </head>
 
@@ -43,7 +42,16 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
+    <div class="topbar d-none d-md-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span>Nagpur, India</span>
+            <div class="topbar-links">
+                <a href="mailto:lokeshghagare@gmail.com">lokeshghagare@gmail.com</a>
+                <a href="tel:+919225159719">+91 9225159719 <span>IST</span></a>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
         <a href="index.html" class="navbar-brand navbar-brand-logo px-3 px-lg-4">
             <img src="img/logo.svg" alt="Global Route Company">
         </a>
@@ -61,20 +69,19 @@
                 <a href="https://wa.me/919225159719?text=Hello%20Global%20Route%20Company%2C%20I%20would%20like%20to%20enquire%20about%20sourcing%20from%20India." class="nav-item nav-link d-lg-none" target="_blank" rel="noopener">WhatsApp</a>
             </div>
             <div class="navbar-actions d-none d-lg-flex align-items-center pe-lg-4">
-                <a href="tel:+919225159719" class="navbar-phone me-3"><i class="fa fa-phone-alt text-primary me-2"></i>+91 9225159719 <span class="navbar-tz">IST</span></a>
                 <a href="quote.html" class="btn btn-primary py-2 px-3 me-2">Request a Quote</a>
                 <a href="https://wa.me/919225159719?text=Hello%20Global%20Route%20Company%2C%20I%20would%20like%20to%20enquire%20about%20sourcing%20from%20India." class="btn btn-whatsapp py-2 px-3" target="_blank" rel="noopener"><i class="fab fa-whatsapp me-1"></i>WhatsApp</a>
             </div>
         </div>
     </nav>
 
-    <div class="container-fluid page-header py-5" style="margin-bottom: 6rem;">
-        <div class="container py-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Exports</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb">
+    <div class="page-header" style="background-image: linear-gradient(rgba(11, 29, 54, .62), rgba(11, 29, 54, .62)), url(img/export-hero.jpg);">
+        <div class="container">
+            <h1>Exports</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Exports</li>
+                    <li class="breadcrumb-item text-white-50 active" aria-current="page">Exports</li>
                 </ol>
             </nav>
         </div>
@@ -82,33 +89,27 @@
 
     <div class="container-xxl py-5">
         <div class="container py-5">
-            <div class="row g-5 align-items-center mb-5">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="text-secondary text-uppercase mb-3">Export From India</h6>
-                    <h1 class="mb-4">Taking India's Agricultural Products to the World</h1>
-                    <p class="mb-4">India is home to a diverse agricultural ecosystem producing a wide range of fruits, vegetables, spices, grains and other food products. Global Route Company aims to connect these products with international markets through reliable sourcing and professional trade coordination.</p>
-                    <p class="mb-0">We source and supply a wide range of agricultural and food products based on buyer requirements and market demand. Availability depends on seasonality, quality standards, quantity and destination requirements.</p>
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <img class="img-fluid w-100" src="img/export-hero.jpg" alt="Export from India" style="object-fit:cover; max-height:420px;">
-                </div>
+            <div class="mx-auto mb-5" style="max-width: 760px;">
+                <h6 class="text-secondary text-uppercase mb-3">Export from India</h6>
+                <h2 class="mb-3">Agricultural products for overseas buyers</h2>
+                <p class="mb-0">Global Route Company connects Indian fruits, vegetables, spices, grains and related food products with international markets. Availability depends on seasonality, quality, quantity and destination.</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s"><div class="service-item p-4"><div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/fruits.jpg" alt="Fresh Fruits"></div><h4 class="mb-3">Fresh Fruits</h4><p>Papaya, mango, banana, grapes, pomegranate and other seasonal fruits.</p></div></div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s"><div class="service-item p-4"><div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/vegetables.jpg" alt="Fresh Vegetables"></div><h4 class="mb-3">Fresh Vegetables</h4><p>Onion, potato and other vegetables based on market and buyer requirements.</p></div></div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s"><div class="service-item p-4"><div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/chilli.jpg" alt="Chilli and Spices"></div><h4 class="mb-3">Chilli &amp; Spices</h4><p>Indian chilli, red chilli and selected spices for global buyers.</p></div></div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.4s"><div class="service-item p-4"><div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/rice.jpg" alt="Grains and Pulses"></div><h4 class="mb-3">Grains &amp; Pulses</h4><p>Rice, pulses, grains and other agricultural commodities.</p></div></div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s"><div class="service-item p-4"><div class="overflow-hidden mb-4"><img class="img-fluid" src="img/products/custom.jpg" alt="Custom Sourcing"></div><h4 class="mb-3">Custom Sourcing</h4><p>Products sourced according to specific buyer requirements.</p></div></div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.6s"><div class="service-item p-4 bg-primary text-white"><h4 class="mb-3 text-white">Share Your Requirement</h4><p class="text-white">Tell us the product, quantity, quality preference and destination — we will explore suitable sourcing options.</p><a href="quote.html" class="btn btn-secondary py-2 px-4">Request a Quote</a></div></div>
+                <div class="col-md-6 col-lg-4"><a class="product-card" href="quote.html?product=Fresh%20Fruits"><div class="product-img"><img src="img/products/fruits.jpg" alt="Fresh Fruits" loading="lazy"></div><div class="p-4"><h4>Fresh Fruits</h4><p>Papaya, mango, banana, grapes, pomegranate and other seasonal fruits.</p><span class="enquire-link">Enquire</span></div></a></div>
+                <div class="col-md-6 col-lg-4"><a class="product-card" href="quote.html?product=Fresh%20Vegetables"><div class="product-img"><img src="img/products/vegetables.jpg" alt="Fresh Vegetables" loading="lazy"></div><div class="p-4"><h4>Fresh Vegetables</h4><p>Onion, potato and other vegetables based on buyer requirements.</p><span class="enquire-link">Enquire</span></div></a></div>
+                <div class="col-md-6 col-lg-4"><a class="product-card" href="quote.html?product=Chilli%20%26%20Spices"><div class="product-img"><img src="img/products/chilli.jpg" alt="Chilli and Spices" loading="lazy"></div><div class="p-4"><h4>Chilli &amp; Spices</h4><p>Indian chilli, red chilli and selected spices for global buyers.</p><span class="enquire-link">Enquire</span></div></a></div>
+                <div class="col-md-6 col-lg-4"><a class="product-card" href="quote.html?product=Grains%20%26%20Pulses"><div class="product-img"><img src="img/products/rice.jpg" alt="Grains and Pulses" loading="lazy"></div><div class="p-4"><h4>Grains &amp; Pulses</h4><p>Rice, pulses, grains and other agricultural commodities.</p><span class="enquire-link">Enquire</span></div></a></div>
+                <div class="col-md-6 col-lg-4"><a class="product-card" href="quote.html?product=Custom%20Sourcing"><div class="product-img"><img src="img/products/custom.jpg" alt="Custom Sourcing" loading="lazy"></div><div class="p-4"><h4>Custom Sourcing</h4><p>Products sourced according to specific buyer requirements.</p><span class="enquire-link">Enquire</span></div></a></div>
+                <div class="col-md-6 col-lg-4"><div class="cta-tile"><h4 class="text-white mb-3">Share your requirement</h4><p class="text-white">Tell us the product, quantity, quality preference and destination.</p><a href="quote.html" class="btn btn-secondary py-2 px-4">Request a Quote</a></div></div>
             </div>
         </div>
     </div>
 
-    <div class="container-fluid bg-dark text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s" style="margin-top: 6rem;">
+    <div class="container-fluid bg-dark text-light footer pt-5">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-4 col-md-6">
-                    <div class="footer-brand">Global Route Company</div>
+                    <a href="index.html" class="footer-logo-link"><img src="img/logo-white.svg" alt="Global Route Company" class="footer-logo"></a>
                     <p class="footer-tagline">Connecting India to Global Markets</p>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Plot No. 188, CA Road, Garoba Maidan, Nagpur, Maharashtra (Near Dalvi Hospital) - 440008</p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a class="text-light" href="tel:+919225159719">+91 9225159719</a> <span class="text-white-50">(IST)</span></p>
@@ -138,8 +139,7 @@
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Start a Conversation</h4>
                     <p>Tell us what you are looking for and our team will explore suitable sourcing opportunities.</p>
-                    <a href="contact.html" class="btn btn-primary py-2 px-4 mt-2">Contact Us</a>
-                    <a href="quote.html" class="btn btn-outline-light py-2 px-4 mt-2">Request a Quote</a>
+                    <a href="quote.html" class="btn btn-primary py-2 px-4 mt-2">Request a Quote</a>
                     <a href="https://wa.me/919225159719?text=Hello%20Global%20Route%20Company%2C%20I%20would%20like%20to%20enquire%20about%20sourcing%20from%20India." class="btn btn-whatsapp py-2 px-4 mt-2" target="_blank" rel="noopener">WhatsApp</a>
                 </div>
             </div>
@@ -162,9 +162,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/wow/wow.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
