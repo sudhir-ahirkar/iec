@@ -12,6 +12,10 @@ PHONE = "+91 9225159719"
 PHONE_TEL = "+919225159719"
 EMAIL = "lokeshghagare@gmail.com"
 ADDRESS = "Plot No. 188, CA Road, Garoba Maidan, Nagpur, Maharashtra (Near Dalvi Hospital) - 440008"
+MAP_LAT = "21.1473515"
+MAP_LNG = "79.1214913"
+MAP_EMBED = f"https://www.google.com/maps?q={MAP_LAT},{MAP_LNG}&z=17&hl=en&output=embed"
+MAP_LINK = f"https://www.google.com/maps?q={MAP_LAT},{MAP_LNG}"
 WHATSAPP = "https://wa.me/919225159719?text=Hello%20Global%20Route%20Company%2C%20I%20would%20like%20to%20enquire%20about%20sourcing%20from%20India."
 SITE = "https://groute.co.in"
 
@@ -45,6 +49,12 @@ ORG_SCHEMA = json.dumps(
             "postalCode": "440008",
             "addressCountry": "IN",
         },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": MAP_LAT,
+            "longitude": MAP_LNG,
+        },
+        "hasMap": MAP_LINK,
     },
     ensure_ascii=False,
 )
@@ -659,9 +669,11 @@ CONTACT = page_header("Contact", "Contact", "img/cta-bg.jpg") + f"""
                         <p class="mb-4"><i class="fa fa-envelope me-3"></i><a class="text-white" href="mailto:{EMAIL}">{EMAIL}</a></p>
                         <hr class="border-light">
                         <h5 class="text-white mb-3">Office Location</h5>
-                        <div class="ratio ratio-4x3 bg-white">
-                            <iframe src="https://www.google.com/maps?q=Plot+No.+188,+CA+Road,+Garoba+Maidan,+Nagpur,+Maharashtra+440008&output=embed" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="{COMPANY} office location"></iframe>
+                        <p class="mb-3">{ADDRESS}</p>
+                        <div class="ratio ratio-4x3 bg-white mb-3">
+                            <iframe src="{MAP_EMBED}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="{COMPANY} office, Plot No. 188, CA Road, Garoba Maidan, Nagpur"></iframe>
                         </div>
+                        <a class="btn btn-secondary py-2 px-4" href="{MAP_LINK}" target="_blank" rel="noopener">Open in Google Maps</a>
                     </div>
                 </div>
             </div>
