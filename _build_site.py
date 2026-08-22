@@ -76,9 +76,9 @@ def head(title: str, description: str, page: str, noindex: bool = False) -> str:
     <meta name="twitter:title" content="{title}">
     <meta name="twitter:description" content="{description}">
     <meta name="twitter:image" content="{SITE}/img/og.jpg">
-    <link href="img/favicon.svg" rel="icon" type="image/svg+xml">
-    <link href="img/favicon-32.png" rel="icon" type="image/png" sizes="32x32">
-    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="img/favicon.svg?v=2" rel="icon" type="image/svg+xml">
+    <link href="img/favicon-32.png?v=2" rel="icon" type="image/png" sizes="32x32">
+    <link href="img/apple-touch-icon.png?v=2" rel="apple-touch-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -110,8 +110,8 @@ def nav(active: str) -> str:
         </div>
     </div>
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-        <a href="index.html" class="navbar-brand navbar-brand-logo px-3 px-lg-4">
-            <img src="img/logo.svg" alt="{COMPANY}">
+        <a href="index.html" class="navbar-brand navbar-brand-logo" aria-label="{COMPANY}">
+            <img src="img/logo.svg?v=2" alt="{COMPANY}" width="280" height="52">
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -140,7 +140,7 @@ FOOTER = f"""
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-4 col-md-6">
-                    <a href="index.html" class="footer-logo-link"><img src="img/logo-white.svg" alt="{COMPANY}" class="footer-logo"></a>
+                    <a href="index.html" class="footer-logo-link" aria-label="{COMPANY}"><img src="img/logo-white.svg?v=2" alt="{COMPANY}" class="footer-logo" width="280" height="52"></a>
                     <p class="footer-tagline">{TAGLINE}</p>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>{ADDRESS}</p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a class="text-light" href="tel:{PHONE_TEL}">{PHONE}</a> <span class="text-white-50">(IST)</span></p>

@@ -129,17 +129,19 @@
 }
 
 .navbar-brand-logo {
-    height: 68px;
+    height: 72px;
     display: flex;
     align-items: center;
+    padding: 0 1.1rem 0 1.25rem;
     background: #fff !important;
 }
 
 .navbar-brand-logo img {
-    height: 44px;
+    height: 52px;
     width: auto;
-    max-width: 210px;
+    max-width: 280px;
     object-fit: contain;
+    display: block;
 }
 
 .navbar {
@@ -210,12 +212,13 @@
     }
 
     .navbar-brand-logo {
-        height: 60px;
+        height: 64px;
+        padding: 0 .85rem 0 1rem;
     }
 
     .navbar-brand-logo img {
-        height: 40px;
-        max-width: 180px;
+        height: 44px;
+        max-width: 220px;
     }
 }
 
@@ -669,8 +672,10 @@
 }
 
 .footer-logo {
-    height: 48px;
+    height: 56px;
     width: auto;
+    max-width: 280px;
+    display: block;
 }
 
 .footer-brand {
