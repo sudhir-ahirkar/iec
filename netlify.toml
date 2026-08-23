@@ -2,6 +2,18 @@
   publish = "."
   command = "echo 'Static site — no build step'"
 
+[build.processing]
+  skip_processing = false
+
+[build.processing.html]
+  pretty_urls = true
+
+[[redirects]]
+  from = "https://www.groute.co.in/*"
+  to = "https://groute.co.in/:splat"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]

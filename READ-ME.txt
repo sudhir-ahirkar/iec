@@ -1,4 +1,8 @@
 Global Route Company Website
-Built on the Logistica HTML template structure.
+Preferred domain: https://groute.co.in/
 Static site — deploy via GitHub → Netlify.
-Forms use Netlify Forms (data-netlify). Set email notifications in the Netlify dashboard (not shown on the public site).
+Pretty URLs: /about /exports /imports /products /services /markets /contact
+Search Console: verify https://groute.co.in, then submit https://groute.co.in/sitemap.xml and inspect key URLs.
+Forms use Netlify Forms. Set email notifications in the Netlify dashboard.
+Future product pages: add entries to PRODUCT_DETAIL_PAGES in _build_site.py.
+Future blog posts: add entries to BLOG_POSTS in _build_site.py. Do not publish empty articles.

@@ -625,9 +625,12 @@
     border-color: var(--primary);
 }
 
+.product-card h2,
+.product-card h3,
 .product-card h4,
 .product-card h5 {
     margin-bottom: .5rem;
+    font-size: 1.25rem;
 }
 
 .product-card p {

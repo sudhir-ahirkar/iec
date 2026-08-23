@@ -1,7 +1,33 @@
-# Netlify redirects / SPA fallbacks for Global Route Company static site
-/thank-you  /thank-you.html  200
-/404.html  /404.html  404
-/feature.html  /about.html  301
-/price.html  /products.html  301
-/team.html  /about.html  301
-/testimonial.html  /about.html  301
+# Pretty URLs and retired template paths for Global Route Company
+/about              /about.html          200
+/exports            /exports.html        200
+/imports            /imports.html        200
+/products           /products.html       200
+/services           /service.html        200
+/markets            /markets.html        200
+/contact            /contact.html        200
+/quote              /quote.html          200
+/privacy            /privacy.html        200
+/thank-you          /thank-you.html      200
+
+/about.html         /about               301
+/exports.html       /exports             301
+/imports.html       /imports             301
+/products.html      /products            301
+/service.html       /services            301
+/service            /services            301
+/markets.html       /markets             301
+/contact.html       /contact             301
+/quote.html         /quote               301
+/privacy.html       /privacy             301
+
+/feature.html       /about               301
+/feature            /about               301
+/price.html         /products            301
+/price              /products            301
+/team.html          /about               301
+/team               /about               301
+/testimonial.html   /about               301
+/testimonial        /about               301
+
+/404.html           /404.html            404

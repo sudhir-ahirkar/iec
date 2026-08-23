@@ -18,9 +18,9 @@
         encodeURIComponent(
             "Hello Global Route Company, I would like to enquire about sourcing from India."
         );
-    var quote = "quote.html";
-    var contact = "contact.html";
-    var products = "products.html";
+    var quote = "/quote";
+    var contact = "/contact";
+    var products = "/products";
     var actions =
         '<p><a href="' +
         quote +
@@ -67,14 +67,14 @@
             id: "export",
             keys: ["export", "from india", "overseas buyer", "ship from"],
             html:
-                "<p>We source agricultural products from India for international buyers — fruits, vegetables, spices, grains and related food products. Availability depends on seasonality, quality, quantity and destination.</p><p><a href=\"exports.html\">Export from India</a></p>" +
+                "<p>We source agricultural products from India for international buyers — fruits, vegetables, spices, grains and related food products. Availability depends on seasonality, quality, quantity and destination.</p><p><a href=\"/exports\">Agricultural export from India</a></p>" +
                 actions,
         },
         {
             id: "import",
             keys: ["import", "into india", "to india", "overseas supplier"],
             html:
-                "<p>Alongside exports, we review international products that may fit Indian demand — based on quality, supplier reliability and commercial viability.</p><p><a href=\"imports.html\">Import to India</a></p>" +
+                "<p>Alongside exports, we review international products that may fit Indian demand — based on quality, supplier reliability and commercial viability.</p><p><a href=\"/imports\">Import and global sourcing India</a></p>" +
                 actions,
         },
         {
@@ -108,7 +108,7 @@
                 "certification",
             ],
             html:
-                "<p>We support trade through sourcing and coordination. Freight, certification and documentation are handled with external partners when required. We coordinate shipment with logistics partners rather than operating freight ourselves.</p><p><a href=\"service.html\">Services</a></p>" +
+                "<p>We support trade through sourcing and coordination. Freight, certification and documentation are handled with external partners when required. We coordinate shipment with logistics partners rather than operating freight ourselves.</p><p><a href=\"/services\">Import export and global sourcing services</a></p>" +
                 actions,
         },
         {
@@ -123,7 +123,7 @@
                 "destination",
             ],
             html:
-                "<p>Target markets include the Middle East, Africa, Southeast Asia and Europe. These are regions we are building conversations in — not a claim of current shipment volume. We also review other regions when product fit and commercial terms align.</p><p><a href=\"markets.html\">Target markets</a></p>" +
+                "<p>Target markets include the Middle East, Africa, Southeast Asia and Europe. These are regions we are building conversations in — not a claim of current shipment volume. We also review other regions when product fit and commercial terms align.</p><p><a href=\"/markets\">Indian agricultural products for global markets</a></p>" +
                 actions,
         },
         {
@@ -152,7 +152,7 @@
             id: "about",
             keys: ["about", "who", "company", "what do you do", "trading"],
             html:
-                "<p>Global Route Company is an India-based trading company connecting Indian producers, global buyers and international suppliers. We focus on agricultural and food products, with responsible sourcing and clear communication.</p><p><a href=\"about.html\">About us</a></p>" +
+                "<p>Global Route Company is an India-based trading company connecting Indian producers, global buyers and international suppliers. We focus on agricultural and food products, with responsible sourcing and clear communication.</p><p><a href=\"/about\">About Global Route Company</a></p>" +
                 actions,
         },
         {

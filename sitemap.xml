@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://groute.co.in/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://groute.co.in/about.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://groute.co.in/products.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://groute.co.in/exports.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://groute.co.in/imports.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://groute.co.in/service.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://groute.co.in/markets.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://groute.co.in/contact.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://groute.co.in/quote.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://groute.co.in/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://groute.co.in/</loc><lastmod>2026-08-23</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://groute.co.in/about</loc><lastmod>2026-08-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://groute.co.in/exports</loc><lastmod>2026-08-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://groute.co.in/imports</loc><lastmod>2026-08-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://groute.co.in/products</loc><lastmod>2026-08-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://groute.co.in/services</loc><lastmod>2026-08-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://groute.co.in/markets</loc><lastmod>2026-08-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://groute.co.in/contact</loc><lastmod>2026-08-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://groute.co.in/quote</loc><lastmod>2026-08-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://groute.co.in/privacy</loc><lastmod>2026-08-23</lastmod><changefreq>monthly</changefreq><priority>0.3</priority></url>
 </urlset>

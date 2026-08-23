@@ -39,7 +39,7 @@
             event.preventDefault();
             var local = location.hostname === "127.0.0.1" || location.hostname === "localhost";
             if (local) {
-                window.location.assign("/thank-you.html");
+                window.location.assign("/thank-you");
                 return;
             }
             var body = new URLSearchParams(new FormData(form)).toString();
@@ -49,10 +49,10 @@
                 body: body,
             })
                 .then(function () {
-                    window.location.assign("/thank-you.html");
+                    window.location.assign("/thank-you");
                 })
                 .catch(function () {
-                    window.location.assign("/thank-you.html");
+                    window.location.assign("/thank-you");
                 });
         });
     });
