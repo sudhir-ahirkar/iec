@@ -89,6 +89,8 @@
             <p class="mb-4">This page explains how Global Route Company uses information you send through this website. We do not sell personal information.</p>
             <h4 class="mb-3">What we collect</h4>
             <p class="mb-4">When you submit the business enquiry form, we receive the details you enter — typically name, company, email, phone, country, enquiry type, product, quantity, destination or origin, and your message. If you contact us by phone, WhatsApp or email, we also receive the information you choose to share in that conversation.</p>
+            <h4 class="mb-3">Website assistant</h4>
+            <p class="mb-4">The “Ask us” assistant on this website answers from published company information in your browser. It does not send your typed questions to us unless you continue on WhatsApp, email, phone or the enquiry form.</p>
             <h4 class="mb-3">How we use it</h4>
             <p class="mb-4">We use enquiry details only to understand your requirement and respond. Form submissions are processed by our website host (Netlify Forms) and then reviewed by our team.</p>
             <h4 class="mb-3">How long we keep it</h4>
@@ -150,9 +152,33 @@
     </div>
 
     <a href="https://wa.me/919225159719?text=Hello%20Global%20Route%20Company%2C%20I%20would%20like%20to%20enquire%20about%20sourcing%20from%20India." class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <div class="grc-chat" id="grcChat">
+        <div class="grc-chat-panel" id="grcChatPanel" hidden>
+            <div class="grc-chat-head">
+                <div>
+                    <strong>Global Route</strong>
+                    <span>Ask about products, trade or contact</span>
+                </div>
+                <button type="button" class="grc-chat-close" id="grcChatClose" aria-label="Close chat">&times;</button>
+            </div>
+            <div class="grc-chat-log" id="grcChatLog" role="log" aria-live="polite"></div>
+            <div class="grc-chat-chips" id="grcChatChips"></div>
+            <form class="grc-chat-form" id="grcChatForm" autocomplete="off">
+                <label class="visually-hidden" for="grcChatInput">Your question</label>
+                <input id="grcChatInput" type="text" maxlength="240" placeholder="Ask about products, export or contact">
+                <button type="submit" aria-label="Send">Send</button>
+            </form>
+            <p class="grc-chat-note">Not a live agent. For a person, use WhatsApp or Request a Quote.</p>
+        </div>
+        <button type="button" class="grc-chat-launch" id="grcChatLaunch" aria-expanded="false" aria-controls="grcChatPanel">
+            <i class="fa fa-comment-dots" aria-hidden="true"></i>
+            <span>Ask us</span>
+        </button>
+    </div>
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="bi bi-arrow-up"></i></a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/chat.js"></script>
 </body>
 </html>
