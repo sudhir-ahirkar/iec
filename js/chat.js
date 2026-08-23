@@ -142,7 +142,7 @@
                 "where",
             ],
             html:
-                "<p>Global Route Company, Plot No. 188, CA Road, Garoba Maidan, Nagpur, Maharashtra (Near Dalvi Hospital) - 440008.</p><p>Phone <a href=\"tel:+919225159719\">+91 9225159719</a> (IST) · <a href=\"mailto:lokeshghagare@gmail.com\">lokeshghagare@gmail.com</a> · <a href=\"" +
+                "<p>Global Route Company, Plot No. 188, CA Road, Garoba Maidan, Nagpur, Maharashtra (Near Dalvi Hospital) - 440008.</p><p>Phone <a href=\"tel:+919225159719\">+91 9225159719</a> (IST) · <a href=\"mailto:lokeshghagare19@gmail.com\">lokeshghagare19@gmail.com</a> · <a href=\"" +
                 wa +
                 '" target="_blank" rel="noopener">WhatsApp</a></p><p><a href="' +
                 contact +
